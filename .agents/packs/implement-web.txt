@@ -1,0 +1,3 @@
+project/STATE.md
+.agents/profiles/web-react-vite-netlify.md
+apps/web/AGENTS.md
