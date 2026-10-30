@@ -3,6 +3,17 @@
 
 All notable changes to the framework are documented here. Format follows [Keep a Changelog](https://keepachangelog.com), versioning follows [SemVer](https://semver.org).
 
+## [1.1.2] — 2026-10-30
+
+### Added
+
+- One copyable Phase 0 agent prompt on the portal (`site/prompt.txt` and **Copy prompt**).
+- Studio 1028 credit and link to `1028.udithsandaruwan.com`.
+
+### Changed
+
+- Portal UI restyled as a command-center landing page.
+
 ## [1.1.1] — 2026-10-30
 
 ### Added
