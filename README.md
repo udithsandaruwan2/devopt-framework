@@ -21,10 +21,28 @@ Windows PowerShell:
 irm https://devopt.udithsandaruwan.com/install.ps1 | iex
 ```
 
-Portal: [devopt.udithsandaruwan.com](https://devopt.udithsandaruwan.com) · [Use as GitHub template](https://github.com/udithsandaruwan2/devopt-framework/generate)
+Portal: [devopt.udithsandaruwan.com](https://devopt.udithsandaruwan.com) · Studio: [1028.udithsandaruwan.com](https://1028.udithsandaruwan.com) · [Use as GitHub template](https://github.com/udithsandaruwan2/devopt-framework/generate)
+
+After install, paste this into the agent (also on the portal as **Copy prompt**):
+
+```
+DevOpt — Phase 0 kickoff.
+
+You are starting a new product in a DevOpt workspace. AGENTS.md is the operating manual. Do not invent requirements.
+
+1. Read AGENTS.md fully, once.
+2. Read project/STATE.md.
+3. Run: ./scripts/context-pack.sh kickoff
+   Open only the files that script lists.
+4. Load the project-kickoff skill and run Phase 0 — Intake.
+
+Fill project/00-brief.md. Ask at most 3 questions at a time, each with a recommended default. Do not write product code. Do not approve gates — propose G0 when the brief is complete and wait for me.
+
+Default stack unless I override: React + Vite + Netlify frontend, Django + DRF backend, promotion-track git (dev/frontend, dev/backend, prod/frontend, prod/backend, then main).
+```
 
 [![CI](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml/badge.svg)](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml)
-![version](https://img.shields.io/badge/version-1.1.1-0ea5e9)
+![version](https://img.shields.io/badge/version-1.1.2-0ea5e9)
 ![AGENTS.md](https://img.shields.io/badge/AGENTS.md-119%20lines-8b5cf6)
 ![baseline](https://img.shields.io/badge/session%20baseline-%E2%89%A4%203.5k%20tokens-22c55e)
 [![license](https://img.shields.io/badge/license-MIT-111827)](LICENSE)
@@ -190,4 +208,4 @@ Research notes: [docs/13-research-notes.md](docs/13-research-notes.md). Human gu
 
 ## License
 
-[MIT](LICENSE) © 2026 Udith Sandaruwan
+[MIT](LICENSE) © 2026 Udith Sandaruwan · Developed by [Studio 1028](https://1028.udithsandaruwan.com)

@@ -1,0 +1,13 @@
+DevOpt — Phase 0 kickoff.
+
+You are starting a new product in a DevOpt workspace. AGENTS.md is the operating manual. Do not invent requirements.
+
+1. Read AGENTS.md fully, once.
+2. Read project/STATE.md.
+3. Run: ./scripts/context-pack.sh kickoff
+   Open only the files that script lists.
+4. Load the project-kickoff skill and run Phase 0 — Intake.
+
+Fill project/00-brief.md. Ask at most 3 questions at a time, each with a recommended default. Do not write product code. Do not approve gates — propose G0 when the brief is complete and wait for me.
+
+Default stack unless I override: React + Vite + Netlify frontend, Django + DRF backend, promotion-track git (dev/frontend, dev/backend, prod/frontend, prod/backend, then main).

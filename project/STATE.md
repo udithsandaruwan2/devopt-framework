@@ -11,9 +11,9 @@ gates:
   G2: approved 2026-10-30 by human
   G3: approved 2026-10-30 by human
   G4: approved 2026-10-30 by human
-  G5: approved 2026-10-30 by human (PR #1 merged to main)
+  G5: approved 2026-10-30 by human (PR #1 and #2 merged to main)
   G6: pending
-next_action: "Merge feat/distribution-portal; confirm https://devopt.udithsandaruwan.com serves the installer."
+next_action: "Ship v1.1.2 portal (Phase 0 prompt + Studio 1028); merge to main."
 ---
 
 # Project state
@@ -22,7 +22,7 @@ next_action: "Merge feat/distribution-portal; confirm https://devopt.udithsandar
 
 ## Current focus
 
-v1.1.0 framework: promotion-track git, Django-default backend, context packs. G0–G4 approved. First commit on `feat/framework-v1.1`.
+v1.1.2 portal: copyable Phase 0 prompt, Studio 1028 branding. Installer live at `devopt.udithsandaruwan.com`.
 
 ## Gate log
 
@@ -33,7 +33,7 @@ v1.1.0 framework: promotion-track git, Django-default backend, context packs. G0
 | G2 Product | approved | 2026-10-30 | human | PRD + catalog |
 | G3 Architecture | approved | 2026-10-30 | human | ADRs 0001–0003 |
 | G4 Plan / build | approved | 2026-10-30 | human | plan executed |
-| G5 Merge | pending | | | wait for CI + merge to `main` |
+| G5 Merge | approved | 2026-10-30 | human | PR #1 and #2 on `main` |
 | G6 Release | pending | | | |
 
 ## Blockers
