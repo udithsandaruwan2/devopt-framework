@@ -9,7 +9,7 @@ ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Defaults, then project config if present.
 FRAMEWORK_NAME="DevOpt"
-FRAMEWORK_VERSION="1.1.3"
+FRAMEWORK_VERSION="1.2.0"
 AGENTS_MAX_LINES=140
 SKILL_MAX_LINES=200
 DOC_MAX_LINES=500

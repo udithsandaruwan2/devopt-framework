@@ -3,135 +3,80 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DevOpt — agent OS · Studio 1028</title>
-  <meta name="description" content="Open a folder, paste one prompt. The agent installs DevOpt from the portal and runs Phase 0 and Phase 1. Developed by Studio 1028.">
+  <title>DevOpt — the agent OS that spends ~90% fewer context tokens</title>
+  <meta name="description" content="DevOpt is a portable operating system for AI-assisted products. It stops agents from dumping the repo, guessing requirements, and shipping without you — about 90% fewer context tokens than a typical dump.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Orbitron:wght@500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #030712;
-      --cyan: #3ee0ff;
-      --magenta: #ff3d9a;
-      --lime: #c8ff5a;
-      --text: #eaf4ff;
-      --dim: #7d96b4;
-      --line: rgba(62, 224, 255, .18);
-      --panel: rgba(6, 14, 28, .78);
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      color: var(--text);
-      font: 16px/1.55 Outfit, ui-sans-serif, system-ui, sans-serif;
-      background:
-        radial-gradient(900px 420px at 8% -8%, rgba(62,224,255,.16), transparent 55%),
-        radial-gradient(700px 380px at 100% 0%, rgba(255,61,154,.14), transparent 50%),
-        radial-gradient(800px 500px at 50% 120%, rgba(200,255,90,.06), transparent 45%),
-        var(--bg);
-      overflow-x: hidden;
-    }
-    body::before {
-      content: "";
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background-image:
-        linear-gradient(rgba(62,224,255,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(62,224,255,.05) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,.7), transparent 88%);
-    }
-    body::after {
-      content: "";
-      position: fixed; inset: 0; pointer-events: none; z-index: 1;
-      background: repeating-linear-gradient(transparent 0 3px, rgba(0,0,0,.08) 3px 4px);
-      opacity: .35;
-    }
-    .wrap { position: relative; z-index: 2; max-width: 980px; margin: 0 auto; padding: 22px 20px 72px; }
-    header {
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
-      border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px;
-      background: var(--panel); backdrop-filter: blur(12px);
-    }
-    .brand { display: flex; align-items: baseline; gap: 12px; }
-    .logo { font-family: Orbitron, sans-serif; font-weight: 700; letter-spacing: .18em; font-size: .95rem; color: var(--cyan); }
-    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 12px var(--lime); animation: pulse 1.8s infinite; }
-    @keyframes pulse { 50% { opacity: .35; } }
-    .studio {
-      font-family: IBM Plex Mono, monospace; font-size: .72rem; color: var(--dim);
-      text-decoration: none; letter-spacing: .08em; text-transform: uppercase;
-    }
-    .studio:hover { color: var(--cyan); }
-    .hero { margin: 42px 0 28px; }
-    .tag { font-family: IBM Plex Mono, monospace; font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: var(--magenta); margin: 0 0 10px; }
-    h1 {
-      font-family: Orbitron, sans-serif; font-size: clamp(1.7rem, 4.4vw, 2.7rem);
-      letter-spacing: .04em; line-height: 1.15; margin: 0 0 14px; text-transform: uppercase;
-    }
-    .lead { max-width: 40rem; color: var(--dim); margin: 0; font-size: 1.08rem; }
-    section { margin-top: 28px; }
-    h2 { font-size: 1.05rem; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; color: var(--cyan); }
-    .panel {
-      background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 14px;
-      box-shadow: 0 0 0 1px rgba(255,61,154,.08), 0 20px 60px rgba(0,0,0,.35);
-    }
-    .panel.featured { border-color: rgba(62,224,255,.45); box-shadow: 0 0 40px rgba(62,224,255,.12), 0 20px 60px rgba(0,0,0,.4); }
-    .row { display: flex; gap: 10px; align-items: stretch; }
-    pre, code.cmd {
-      flex: 1; margin: 0; padding: 14px 16px; overflow: auto;
-      font: 13px/1.55 "IBM Plex Mono", ui-monospace, monospace;
-      white-space: pre-wrap; word-break: break-word; color: #d7ecff;
-    }
-    button.copy {
-      flex: 0 0 auto; align-self: flex-start;
-      background: linear-gradient(180deg, #123154, #0a1b2e);
-      color: var(--cyan); border: 1px solid rgba(62,224,255,.45);
-      border-radius: 10px; padding: 10px 14px; cursor: pointer;
-      font: 600 12px/1 Orbitron, sans-serif; letter-spacing: .12em; text-transform: uppercase;
-    }
-    button.copy:hover { background: #16466c; }
-    button.copy.copied { color: var(--lime); border-color: var(--lime); }
-    .hint { color: var(--dim); font-size: .88rem; margin: 10px 2px 0; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-    article { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
-    article h3 { margin: 0 0 8px; font-size: .95rem; }
-    article p { margin: 0; color: var(--dim); font-size: .92rem; }
-    a { color: var(--cyan); }
-    footer {
-      margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
-      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-      font-family: IBM Plex Mono, monospace; font-size: .78rem; color: var(--dim); letter-spacing: .04em;
-    }
-    .sig { color: var(--text); text-decoration: none; }
-    .sig span { color: var(--magenta); }
-    @media (max-width: 700px) {
-      .row { flex-direction: column; }
-      button.copy { width: 100%; }
-      header { flex-wrap: wrap; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@500&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/site.css">
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <span class="pulse" aria-hidden="true"></span>
-        <span class="logo">DEVOPT</span>
-        <span class="tag" style="margin:0;color:var(--dim)">v1.1.3 · ONLINE</span>
-      </div>
+    <header class="bar">
+      <a class="mark" href="./">DEVOPT</a>
+      <nav>
+        <a href="./">Home</a>
+        <a href="./setup.html">Setup</a>
+        <a href="./how.html">How it works</a>
+        <a href="./architecture.html">Architecture</a>
+      </nav>
       <a class="studio" href="https://1028.udithsandaruwan.com">Developed by Studio 1028</a>
     </header>
 
-    <div class="hero">
-      <p class="tag">Agent operating system</p>
-      <h1>Open a folder.<br>Paste one prompt.<br>Install + Phase 0 + 1.</h1>
-      <p class="lead">Pick an empty folder in Cursor. Paste this. The agent installs DevOpt from this site into that folder — no git clone — then writes the brief and discovery and stops at the gates.</p>
-    </div>
+    <section class="hero">
+      <div class="shapes" aria-hidden="true">
+        <span class="shape sq"></span>
+        <span class="shape ci"></span>
+        <span class="shape rect"></span>
+      </div>
+      <p class="kicker">Agent operating system · v1.2</p>
+      <h1>Start right.<br>Ship small.<br><span>Spend less.</span></h1>
+      <p class="lead">DevOpt is the portable OS you drop into a folder so every AI agent — Cursor, Claude, Copilot, and the rest — knows where you are, what to build, and which files to open. No git clone. One paste.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card what">
+        <h3>What it does</h3>
+        <p>Installs a project operating manual: phases, gates, stack profiles, and context packs. The agent fills a brief and discovery, then stops until you approve. It does not dump the repo or write product code on day one.</p>
+      </article>
+      <article class="card why">
+        <h3>Why it matters</h3>
+        <p>Without it, agents re-read everything, guess requirements, mix frontend and backend, and push to production. You pay for those tokens twice: once for the noise, again for the rewrite.</p>
+      </article>
+    </section>
 
     <section>
-      <h2>01 · Copy this into the agent</h2>
-      <div class="panel featured">
+      <h2 style="margin-top:40px">Normal prompt vs DevOpt</h2>
+      <p class="lead">Same job, different context bill. Numbers from this repo’s <code>token-audit.sh</code> (characters ÷ 4).</p>
+      <div class="save-banner">
+        <div class="pct"><span><b data-count="90">0%</b><small>fewer context tokens</small></span></div>
+        <p>A typical “read the whole repo” dump on this framework is ~50,700 tokens. DevOpt’s always-on baseline is 2,234 (budget ≤ 3,500). You stop paying for files the agent should never open.</p>
+      </div>
+      <div class="compare">
+        <article class="card bad">
+          <h3>Normal prompt</h3>
+          <p>“Read the whole project and figure it out.”</p>
+          <p class="stat">~50,700</p>
+          <p>context tokens — docs, every skill, every profile, the catalog, templates.</p>
+          <div class="bar-track"><div class="bar-fill" data-width="100%"></div></div>
+        </article>
+        <article class="card good">
+          <h3>With DevOpt</h3>
+          <p>AGENTS.md + skill names. One pack. One skill. One track.</p>
+          <p class="stat">2,234</p>
+          <p>session baseline (budget ≤ 3,500). Kickoff session ~4,200.</p>
+          <div class="bar-track"><div class="bar-fill thin" data-width="4%"></div></div>
+        </article>
+      </div>
+      <p class="note">That is ~90% less context than dumping this framework into the chat. You still pay for the work that follows — you just stop paying for files the agent should never have loaded. A smaller prompt that causes rework is a net loss; DevOpt optimizes tokens per correct, merged change.</p>
+    </section>
+
+    <section>
+      <h2>Paste this into the agent</h2>
+      <p class="lead">Open an empty folder first. This one prompt installs into that folder from this site, then runs Phase 0 and Phase 1.</p>
+      <div class="panel">
         <div class="row">
-          <pre id="prompt-phase-0">DevOpt — one shot. This open folder is the project. Do not git clone.
+          <pre id="prompt-one-shot">DevOpt — one shot. This open folder is the project. Do not git clone.
 
 If AGENTS.md is missing, install into THIS directory from https://devopt.udithsandaruwan.com (installer tarball, not git clone). Do not create a nested subdirectory.
 
@@ -154,59 +99,10 @@ Then, in this same session, without waiting for another paste:
 Ask at most 3 questions at a time, each with a recommended default. Use anything I already wrote in this chat. Do not invent requirements. Do not write product code. Do not approve gates — propose G0 and G1 together when both drafts are ready, then stop.
 
 Default stack unless I override: React + Vite + Netlify frontend, Django + DRF backend, promotion-track git (dev/frontend, dev/backend, prod/frontend, prod/backend, then main).</pre>
-          <button class="copy" type="button" data-copy="prompt-phase-0">Copy prompt</button>
+          <button class="copy" type="button" data-copy="prompt-one-shot">Copy prompt</button>
         </div>
       </div>
-      <p class="hint">Open the folder first, then paste. Raw file: <a href="./prompt.txt">prompt.txt</a></p>
-    </section>
-
-    <section>
-      <h2>00 · Or install yourself</h2>
-      <div class="panel">
-        <p class="hint" style="margin-top:0">macOS / Linux</p>
-        <div class="row">
-          <code class="cmd" id="cmd-unix">/bin/bash -c "$(curl -fsSL https://devopt.udithsandaruwan.com/install.sh)"</code>
-          <button class="copy" type="button" data-copy="cmd-unix">Copy</button>
-        </div>
-        <p class="hint">Windows PowerShell</p>
-        <div class="row">
-          <code class="cmd" id="cmd-win">irm https://devopt.udithsandaruwan.com/install.ps1 | iex</code>
-          <button class="copy" type="button" data-copy="cmd-win">Copy</button>
-        </div>
-      </div>
-      <p class="hint">Asks name, backend (Django default), and git model. Into the current folder: <code>--here --yes</code>. Other flags: <code>--name my-app --backend django|fastapi|nest --trunk</code></p>
-    </section>
-
-    <section>
-      <h2>02 · What happens</h2>
-      <div class="grid">
-        <article>
-          <h3>Install</h3>
-          <p>The prompt downloads the framework into the folder you opened. Django + DRF, React + Vite + Netlify. No git clone.</p>
-        </article>
-        <article>
-          <h3>Phase 0 then 1</h3>
-          <p>Same session fills <code>project/00-brief.md</code> and <code>project/01-discovery.md</code>, then proposes G0 and G1. You approve. No product code yet.</p>
-        </article>
-        <article>
-          <h3>Studio 1028</h3>
-          <p>Built at <a href="https://1028.udithsandaruwan.com">1028.udithsandaruwan.com</a>. Portal lives at <span style="color:var(--lime)">devopt.udithsandaruwan.com</span>.</p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2>Other ways in</h2>
-      <div class="grid">
-        <article>
-          <h3>GitHub template</h3>
-          <p><a href="https://github.com/udithsandaruwan2/devopt-framework/generate">Use this template</a> to create a repo, then paste the Phase 0 prompt.</p>
-        </article>
-        <article>
-          <h3>Source</h3>
-          <p><a href="https://github.com/udithsandaruwan2/devopt-framework">github.com/udithsandaruwan2/devopt-framework</a></p>
-        </article>
-      </div>
+      <p class="hint">Raw file: <a href="./prompt.txt">prompt.txt</a> · Step-by-step: <a href="./setup.html">Setup guide</a></p>
     </section>
 
     <footer>
@@ -214,17 +110,6 @@ Default stack unless I override: React + Vite + Netlify frontend, Django + DRF b
       <span>MIT · Udith Sandaruwan · 1028.udithsandaruwan.com</span>
     </footer>
   </div>
-  <script>
-    document.querySelectorAll("button.copy").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const el = document.getElementById(btn.dataset.copy);
-        await navigator.clipboard.writeText(el.textContent.trim());
-        btn.classList.add("copied");
-        const prev = btn.textContent;
-        btn.textContent = "Copied";
-        setTimeout(() => { btn.textContent = prev; btn.classList.remove("copied"); }, 1400);
-      });
-    });
-  </script>
+  <script src="./assets/site.js"></script>
 </body>
 </html>
