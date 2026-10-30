@@ -64,7 +64,10 @@ else
     die "$TARGET already has AGENTS.md. Use --force to overwrite framework files."
   fi
 
-  existing="$(find "$TARGET" -mindepth 1 -maxdepth 1 ! -name '.git' -print -quit 2>/dev/null || true)"
+  existing="$(find "$TARGET" -mindepth 1 -maxdepth 1 \
+    ! -name '.git' ! -name '.cursor' ! -name '.vscode' ! -name '.idea' \
+    ! -name '.DS_Store' ! -name '.claude' ! -name '.windsurf' \
+    -print -quit 2>/dev/null || true)"
   if [ -n "$existing" ] && [ "$FORCE" != "1" ]; then
     die "$TARGET is not empty. Use --force to add framework files (review the diff afterwards)."
   fi

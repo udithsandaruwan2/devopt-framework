@@ -1,43 +1,87 @@
 # DevOpt installer for Windows PowerShell
 #   irm https://devopt.udithsandaruwan.com/install.ps1 | iex
+#   iex "& { $(irm https://devopt.udithsandaruwan.com/install.ps1) } -Here -Yes"
+param(
+  [string]$Name = "",
+  [string]$Dir = "",
+  [ValidateSet("django", "fastapi", "nest", "")]
+  [string]$Backend = "",
+  [switch]$Trunk,
+  [switch]$Here,
+  [switch]$Yes
+)
 
 $ErrorActionPreference = "Stop"
 $Repo = if ($env:DEVOPT_REPO) { $env:DEVOPT_REPO } else { "udithsandaruwan2/devopt-framework" }
 $Branch = if ($env:DEVOPT_BRANCH) { $env:DEVOPT_BRANCH } else { "main" }
 $ZipUrl = "https://github.com/$Repo/archive/refs/heads/$Branch.zip"
 
+function Test-Ignorable($name) {
+  return $name -in @(".git", ".cursor", ".vscode", ".idea", ".DS_Store", ".claude", ".windsurf")
+}
+
+function Test-HasRealEntries($path) {
+  if (-not (Test-Path $path)) { return $false }
+  Get-ChildItem $path -Force | Where-Object { -not (Test-Ignorable $_.Name) } | Select-Object -First 1
+}
+
 Write-Host ""
 Write-Host "  DevOpt installer"
 Write-Host "  https://devopt.udithsandaruwan.com"
 Write-Host ""
 
-$Name = Read-Host "Project name [my-app]"
-if ([string]::IsNullOrWhiteSpace($Name)) { $Name = "my-app" }
-
-$DirDefault = Join-Path (Get-Location) $Name
-$Target = Read-Host "Directory [$DirDefault]"
-if ([string]::IsNullOrWhiteSpace($Target)) { $Target = $DirDefault }
-
-Write-Host ""
-Write-Host "Backend stack:"
-Write-Host "  1) Django + DRF  (default)"
-Write-Host "  2) FastAPI"
-Write-Host "  3) NestJS"
-$BackendPick = Read-Host "Choose 1/2/3 [1]"
-switch ($BackendPick) {
-  "2" { $Backend = "fastapi" }
-  "3" { $Backend = "nest" }
-  default { $Backend = "django" }
+if ($Here) {
+  if ([string]::IsNullOrWhiteSpace($Dir)) { $Dir = (Get-Location).Path }
+  if ([string]::IsNullOrWhiteSpace($Name)) {
+    $Name = Split-Path -Leaf (Get-Location)
+    if ([string]::IsNullOrWhiteSpace($Name) -or $Name -eq "\" -or $Name -eq "/") { $Name = "my-app" }
+  }
 }
 
-$GitPick = Read-Host "Git model: 1) promotion tracks  2) trunk [1]"
-$Trunk = ($GitPick -eq "2")
-
-if (Test-Path $Target) {
-  if ((Get-ChildItem $Target -Force | Measure-Object).Count -gt 0) {
-    throw "Directory exists and is not empty: $Target"
+if ([string]::IsNullOrWhiteSpace($Name)) {
+  if ($Yes) { $Name = "my-app" }
+  else {
+    $Name = Read-Host "Project name [my-app]"
+    if ([string]::IsNullOrWhiteSpace($Name)) { $Name = "my-app" }
   }
-} else {
+}
+
+$DirDefault = if ($Here) { (Get-Location).Path } else { Join-Path (Get-Location) $Name }
+if ([string]::IsNullOrWhiteSpace($Dir)) {
+  if ($Yes) { $Dir = $DirDefault }
+  else {
+    $TargetIn = Read-Host "Directory [$DirDefault]"
+    $Dir = if ([string]::IsNullOrWhiteSpace($TargetIn)) { $DirDefault } else { $TargetIn }
+  }
+}
+$Target = $Dir
+
+if ([string]::IsNullOrWhiteSpace($Backend)) {
+  if ($Yes) { $Backend = "django" }
+  else {
+    Write-Host ""
+    Write-Host "Backend stack:"
+    Write-Host "  1) Django + DRF  (default)"
+    Write-Host "  2) FastAPI"
+    Write-Host "  3) NestJS"
+    $BackendPick = Read-Host "Choose 1/2/3 [1]"
+    switch ($BackendPick) {
+      "2" { $Backend = "fastapi" }
+      "3" { $Backend = "nest" }
+      default { $Backend = "django" }
+    }
+  }
+}
+
+if (-not $Trunk -and -not $Yes) {
+  $GitPick = Read-Host "Git model: 1) promotion tracks  2) trunk [1]"
+  $Trunk = ($GitPick -eq "2")
+}
+
+if (Test-HasRealEntries $Target) {
+  throw "Directory exists and is not empty: $Target"
+}
+if (-not (Test-Path $Target)) {
   New-Item -ItemType Directory -Path $Target | Out-Null
 }
 
@@ -67,12 +111,15 @@ try {
   if ($Backend -eq "nest") { $args += "--backend-nest" }
   if ($Backend -eq "fastapi") { $args += "--backend-fastapi" }
   if ($Trunk) { $args += "--trunk" }
+  if (-not (Test-HasRealEntries $Target) -and (Test-Path $Target) -and (Get-ChildItem $Target -Force | Select-Object -First 1)) {
+    $args += "--force"
+  }
   & bash @args
 } finally {
   Remove-Item -Recurse -Force $Tmp -ErrorAction SilentlyContinue
 }
 
 Write-Host ""
-Write-Host "Done. cd $Target"
-Write-Host "Open the folder in your AI agent and say:"
-Write-Host "  Read AGENTS.md and project/STATE.md. Run project-kickoff for phase 0."
+Write-Host "Done. Path: $Target"
+Write-Host "Open the folder in your AI agent and paste:"
+Write-Host "  https://devopt.udithsandaruwan.com/prompt.txt"

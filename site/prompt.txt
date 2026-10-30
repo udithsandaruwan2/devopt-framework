@@ -1,13 +1,23 @@
-DevOpt — Phase 0 kickoff.
+DevOpt — one shot. This open folder is the project. Do not git clone.
 
-You are starting a new product in a DevOpt workspace. AGENTS.md is the operating manual. Do not invent requirements.
+If AGENTS.md is missing, install into THIS directory from https://devopt.udithsandaruwan.com (installer tarball, not git clone). Do not create a nested subdirectory.
+
+Unix / Git Bash / WSL:
+  /bin/bash -c "$(curl -fsSL https://devopt.udithsandaruwan.com/install.sh)" -- --here --yes --name "$(basename "$PWD")"
+
+Windows PowerShell only if bash is unavailable:
+  iex "& { $(irm https://devopt.udithsandaruwan.com/install.ps1) } -Here -Yes"
+
+Then, in this same session, without waiting for another paste:
 
 1. Read AGENTS.md fully, once.
 2. Read project/STATE.md.
 3. Run: ./scripts/context-pack.sh kickoff
    Open only the files that script lists.
-4. Load the project-kickoff skill and run Phase 0 — Intake.
+4. Load the project-kickoff skill.
+5. Phase 0 — Intake: fill project/00-brief.md.
+6. Phase 1 — Discovery: fill project/01-discovery.md from the same answers.
 
-Fill project/00-brief.md. Ask at most 3 questions at a time, each with a recommended default. Do not write product code. Do not approve gates — propose G0 when the brief is complete and wait for me.
+Ask at most 3 questions at a time, each with a recommended default. Use anything I already wrote in this chat. Do not invent requirements. Do not write product code. Do not approve gates — propose G0 and G1 together when both drafts are ready, then stop.
 
 Default stack unless I override: React + Vite + Netlify frontend, Django + DRF backend, promotion-track git (dev/frontend, dev/backend, prod/frontend, prod/backend, then main).
