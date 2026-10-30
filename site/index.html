@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOpt — install without cloning</title>
+  <meta name="description" content="One command to install the DevOpt agent project framework on Linux, macOS, or Windows. No git clone required.">
+  <style>
+    :root { --bg:#070b12; --card:#101826; --line:#1e2a3d; --text:#e8eef7; --muted:#93a4bb; --accent:#38bdf8; --ok:#34d399; }
+    * { box-sizing: border-box; }
+    body { margin:0; font:16px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif; background:radial-gradient(1200px 500px at 10% -10%, #123154 0%, transparent 50%), var(--bg); color:var(--text); }
+    main { max-width: 880px; margin: 0 auto; padding: 48px 20px 80px; }
+    h1 { font-size: 2.4rem; letter-spacing: -.03em; margin: 0 0 8px; }
+    .tag { color: var(--accent); font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .12em; }
+    p.lead { color: var(--muted); font-size: 1.1rem; max-width: 42rem; }
+    section { margin-top: 40px; }
+    h2 { font-size: 1.25rem; margin: 0 0 12px; }
+    .cmd { display:flex; gap:8px; align-items:stretch; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px; }
+    .cmd code { flex:1; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; word-break: break-all; padding: 10px 12px; }
+    button.copy { background:#123154; color:var(--accent); border:1px solid #1d4e74; border-radius:8px; padding:8px 12px; cursor:pointer; font-weight:600; }
+    button.copy:hover { background:#16466c; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:14px; }
+    article { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+    article h3 { margin:0 0 8px; font-size:1rem; }
+    article p, article ol { margin:0; color:var(--muted); font-size:.95rem; }
+    ol { padding-left: 1.2rem; }
+    a { color: var(--accent); }
+    footer { margin-top: 56px; color: var(--muted); font-size: .9rem; }
+    .ok { color: var(--ok); }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="tag">DevOpt v1.1</p>
+    <h1>Install the agent OS. Skip git clone.</h1>
+    <p class="lead">One command asks for your project name, backend, and git model, then drops a ready workspace on Linux, macOS, or Windows. Open it in any AI agent and start at phase 0.</p>
+
+    <section>
+      <h2>macOS / Linux</h2>
+      <div class="cmd">
+        <code id="cmd-unix">/bin/bash -c "$(curl -fsSL https://devopt.udithsandaruwan.com/install.sh)"</code>
+        <button class="copy" type="button" data-copy="cmd-unix">Copy</button>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem;margin:10px 0 0">Needs <code>curl</code>, <code>tar</code>, and <code>bash</code>. Flags: <code>--name my-app --backend django|fastapi|nest --trunk --yes</code></p>
+    </section>
+
+    <section>
+      <h2>Windows (PowerShell)</h2>
+      <div class="cmd">
+        <code id="cmd-win">irm https://devopt.udithsandaruwan.com/install.ps1 | iex</code>
+        <button class="copy" type="button" data-copy="cmd-win">Copy</button>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem;margin:10px 0 0">Uses Git Bash or WSL to run bootstrap. Git for Windows is enough.</p>
+    </section>
+
+    <section>
+      <h2>What the installer asks</h2>
+      <div class="grid">
+        <article>
+          <h3>1. Name and folder</h3>
+          <p>Project name and where to create it. Empty directory only.</p>
+        </article>
+        <article>
+          <h3>2. Backend</h3>
+          <p>Django + DRF (default), FastAPI, or NestJS. Frontend is React + Vite + Netlify.</p>
+        </article>
+        <article>
+          <h3>3. Git model</h3>
+          <p>Promotion tracks (frontend/backend dev + prod, then main) or trunk-based.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Then tell the agent</h2>
+      <div class="cmd">
+        <code id="cmd-agent">Read AGENTS.md and project/STATE.md. Run project-kickoff for phase 0.</code>
+        <button class="copy" type="button" data-copy="cmd-agent">Copy</button>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem;margin:10px 0 0">That is the normal start. For a feature, add the track: <em>frontend</em> or <em>backend</em>. For API work, also: <code>./scripts/context-pack.sh implement-api</code>.</p>
+    </section>
+
+    <section>
+      <h2>Other ways in</h2>
+      <div class="grid">
+        <article>
+          <h3>GitHub template</h3>
+          <p><a href="https://github.com/udithsandaruwan2/devopt-framework/generate">Use this template</a> to create a new repo in your account, then clone that.</p>
+        </article>
+        <article>
+          <h3>Source</h3>
+          <p><a href="https://github.com/udithsandaruwan2/devopt-framework">github.com/udithsandaruwan2/devopt-framework</a></p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      MIT © Udith Sandaruwan · <span class="ok">devopt.udithsandaruwan.com</span>
+    </footer>
+  </main>
+  <script>
+    document.querySelectorAll("button.copy").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const el = document.getElementById(btn.dataset.copy);
+        await navigator.clipboard.writeText(el.textContent.trim());
+        btn.textContent = "Copied";
+        setTimeout(() => { btn.textContent = "Copy"; }, 1400);
+      });
+    });
+  </script>
+</body>
+</html>
