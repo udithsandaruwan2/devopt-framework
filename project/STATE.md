@@ -11,9 +11,9 @@ gates:
   G2: approved 2026-10-30 by human
   G3: approved 2026-10-30 by human
   G4: approved 2026-10-30 by human
-  G5: pending
+  G5: approved 2026-10-30 by human (PR #1 merged to main)
   G6: pending
-next_action: "Merge feat/framework-v1.1 to main after CI is green."
+next_action: "Merge feat/distribution-portal; confirm https://devopt.udithsandaruwan.com serves the installer."
 ---
 
 # Project state

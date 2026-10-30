@@ -3,6 +3,14 @@
 
 All notable changes to the framework are documented here. Format follows [Keep a Changelog](https://keepachangelog.com), versioning follows [SemVer](https://semver.org).
 
+## [1.1.1] — 2026-10-30
+
+### Added
+
+- Public installer portal at `devopt.udithsandaruwan.com` (GitHub Pages).
+- `site/install.sh` and `site/install.ps1` — one-command setup with backend and git prompts.
+- GitHub template-repository flag so people can “Use this template” instead of cloning this repo.
+
 ## [1.1.0] — 2026-10-30
 
 ### Added

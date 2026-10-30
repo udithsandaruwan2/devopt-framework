@@ -101,6 +101,9 @@ else
     --exclude='./.junie' \
     --exclude='./.aider.conf.yml' \
     --exclude='./.github/copilot-instructions.md' \
+    --exclude='./site' \
+    --exclude='./DEVOPT_GUIDANCE.md' \
+    --exclude='./DEVOPT_SETUP_GUIDE.md' \
     -cf - . | tar -C "$TARGET" -xf -
 fi
 
