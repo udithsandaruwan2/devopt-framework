@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DevOpt — agent OS · Studio 1028</title>
-  <meta name="description" content="Install DevOpt in one command, then paste one prompt to start Phase 0. Developed by Studio 1028.">
+  <meta name="description" content="Open a folder, paste one prompt. The agent installs DevOpt from the portal and runs Phase 0 and Phase 1. Developed by Studio 1028.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Orbitron:wght@500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -116,42 +116,52 @@
       <div class="brand">
         <span class="pulse" aria-hidden="true"></span>
         <span class="logo">DEVOPT</span>
-        <span class="tag" style="margin:0;color:var(--dim)">v1.1.2 · ONLINE</span>
+        <span class="tag" style="margin:0;color:var(--dim)">v1.1.3 · ONLINE</span>
       </div>
       <a class="studio" href="https://1028.udithsandaruwan.com">Developed by Studio 1028</a>
     </header>
 
     <div class="hero">
       <p class="tag">Agent operating system</p>
-      <h1>Install once.<br>Paste one prompt.<br>Start Phase 0.</h1>
-      <p class="lead">No git clone. One command drops a workspace. One prompt tells any AI agent to save the brief and run intake — nothing else until you approve the gate.</p>
+      <h1>Open a folder.<br>Paste one prompt.<br>Install + Phase 0 + 1.</h1>
+      <p class="lead">Pick an empty folder in Cursor. Paste this. The agent installs DevOpt from this site into that folder — no git clone — then writes the brief and discovery and stops at the gates.</p>
     </div>
 
     <section>
       <h2>01 · Copy this into the agent</h2>
       <div class="panel featured">
         <div class="row">
-          <pre id="prompt-phase-0">DevOpt — Phase 0 kickoff.
+          <pre id="prompt-phase-0">DevOpt — one shot. This open folder is the project. Do not git clone.
 
-You are starting a new product in a DevOpt workspace. AGENTS.md is the operating manual. Do not invent requirements.
+If AGENTS.md is missing, install into THIS directory from https://devopt.udithsandaruwan.com (installer tarball, not git clone). Do not create a nested subdirectory.
+
+Unix / Git Bash / WSL:
+  /bin/bash -c "$(curl -fsSL https://devopt.udithsandaruwan.com/install.sh)" -- --here --yes --name "$(basename "$PWD")"
+
+Windows PowerShell only if bash is unavailable:
+  iex "& { $(irm https://devopt.udithsandaruwan.com/install.ps1) } -Here -Yes"
+
+Then, in this same session, without waiting for another paste:
 
 1. Read AGENTS.md fully, once.
 2. Read project/STATE.md.
 3. Run: ./scripts/context-pack.sh kickoff
    Open only the files that script lists.
-4. Load the project-kickoff skill and run Phase 0 — Intake.
+4. Load the project-kickoff skill.
+5. Phase 0 — Intake: fill project/00-brief.md.
+6. Phase 1 — Discovery: fill project/01-discovery.md from the same answers.
 
-Fill project/00-brief.md. Ask at most 3 questions at a time, each with a recommended default. Do not write product code. Do not approve gates — propose G0 when the brief is complete and wait for me.
+Ask at most 3 questions at a time, each with a recommended default. Use anything I already wrote in this chat. Do not invent requirements. Do not write product code. Do not approve gates — propose G0 and G1 together when both drafts are ready, then stop.
 
 Default stack unless I override: React + Vite + Netlify frontend, Django + DRF backend, promotion-track git (dev/frontend, dev/backend, prod/frontend, prod/backend, then main).</pre>
           <button class="copy" type="button" data-copy="prompt-phase-0">Copy prompt</button>
         </div>
       </div>
-      <p class="hint">Paste into Cursor, Claude Code, Copilot, or any agent after the folder exists. Raw file: <a href="./prompt.txt">prompt.txt</a></p>
+      <p class="hint">Open the folder first, then paste. Raw file: <a href="./prompt.txt">prompt.txt</a></p>
     </section>
 
     <section>
-      <h2>00 · Create the folder first</h2>
+      <h2>00 · Or install yourself</h2>
       <div class="panel">
         <p class="hint" style="margin-top:0">macOS / Linux</p>
         <div class="row">
@@ -164,7 +174,7 @@ Default stack unless I override: React + Vite + Netlify frontend, Django + DRF b
           <button class="copy" type="button" data-copy="cmd-win">Copy</button>
         </div>
       </div>
-      <p class="hint">Asks name, backend (Django default), and git model. Flags: <code>--name my-app --backend django|fastapi|nest --trunk --yes</code></p>
+      <p class="hint">Asks name, backend (Django default), and git model. Into the current folder: <code>--here --yes</code>. Other flags: <code>--name my-app --backend django|fastapi|nest --trunk</code></p>
     </section>
 
     <section>
@@ -172,11 +182,11 @@ Default stack unless I override: React + Vite + Netlify frontend, Django + DRF b
       <div class="grid">
         <article>
           <h3>Install</h3>
-          <p>Empty folder, Django + DRF, React + Vite + Netlify, promotion-track git. No clone of this repo.</p>
+          <p>The prompt downloads the framework into the folder you opened. Django + DRF, React + Vite + Netlify. No git clone.</p>
         </article>
         <article>
-          <h3>Phase 0</h3>
-          <p>The prompt fills <code>project/00-brief.md</code> and stops at gate G0. You approve. Then discovery.</p>
+          <h3>Phase 0 then 1</h3>
+          <p>Same session fills <code>project/00-brief.md</code> and <code>project/01-discovery.md</code>, then proposes G0 and G1. You approve. No product code yet.</p>
         </article>
         <article>
           <h3>Studio 1028</h3>

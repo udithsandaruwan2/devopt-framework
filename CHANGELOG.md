@@ -3,6 +3,17 @@
 
 All notable changes to the framework are documented here. Format follows [Keep a Changelog](https://keepachangelog.com), versioning follows [SemVer](https://semver.org).
 
+## [1.1.3] — 2026-10-30
+
+### Added
+
+- One-shot agent prompt: install into the open folder from the portal (`--here`), then run Phase 0 and Phase 1 in the same session.
+- Installer `--here` / PowerShell `-Here` so the selected workspace is the project, not a nested clone.
+
+### Changed
+
+- Empty-folder checks ignore editor dirs (`.cursor`, `.vscode`, `.idea`) so an opened empty workspace can install.
+
 ## [1.1.2] — 2026-10-30
 
 ### Added

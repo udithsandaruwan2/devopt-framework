@@ -22,6 +22,7 @@ DevOpt installer
 Options:
   --name NAME          Project name
   --dir PATH           Directory to create (default: ./NAME)
+  --here               Install into the current directory (the folder you opened)
   --backend VALUE      django | fastapi | nest   (default: django)
   --trunk              Use trunk-based git instead of promotion tracks
   --yes                Skip prompts; use defaults for anything unset
@@ -29,10 +30,13 @@ Options:
 EOF
 }
 
+HERE=0
+
 while [ $# -gt 0 ]; do
   case "$1" in
     --name)     NAME="${2:-}"; shift 2 ;;
     --dir)      TARGET="${2:-}"; shift 2 ;;
+    --here)     HERE=1; shift ;;
     --backend)  BACKEND="${2:-}"; shift 2 ;;
     --trunk)    GIT_MODEL="trunk"; shift ;;
     --yes|-y)   NONINTERACTIVE=1; shift ;;
@@ -90,6 +94,14 @@ choose() {
 
 printf '\n  DevOpt installer\n  https://devopt.udithsandaruwan.com\n\n'
 
+if [ "$HERE" = "1" ]; then
+  TARGET="${TARGET:-.}"
+  if [ -z "$NAME" ]; then
+    NAME="$(basename "$(pwd)")"
+    [ -n "$NAME" ] && [ "$NAME" != "/" ] && [ "$NAME" != "." ] || NAME="my-app"
+  fi
+fi
+
 if [ -z "$NAME" ]; then
   NAME="$(ask "Project name" "my-app")"
 fi
@@ -114,7 +126,11 @@ esac
 
 TARGET="$(cd "$(dirname "$TARGET")" && pwd)/$(basename "$TARGET")"
 
-if [ -e "$TARGET" ] && [ -n "$(ls -A "$TARGET" 2>/dev/null || true)" ]; then
+real_entries="$(find "$TARGET" -mindepth 1 -maxdepth 1 \
+  ! -name '.git' ! -name '.cursor' ! -name '.vscode' ! -name '.idea' \
+  ! -name '.DS_Store' ! -name '.claude' ! -name '.windsurf' \
+  -print -quit 2>/dev/null || true)"
+if [ -e "$TARGET" ] && [ -n "$real_entries" ]; then
   printf 'error: %s exists and is not empty\n' "$TARGET" >&2
   exit 1
 fi
@@ -138,6 +154,10 @@ BOOT_ARGS=("$TARGET" "$NAME")
 [ "$BACKEND" = "nest" ] && BOOT_ARGS+=("--backend-nest")
 [ "$BACKEND" = "fastapi" ] && BOOT_ARGS+=("--backend-fastapi")
 [ "$GIT_MODEL" = "trunk" ] && BOOT_ARGS+=("--trunk")
+# Opened workspaces often only have .cursor / .vscode; older bootstrap treats those as nonempty.
+if [ -z "$real_entries" ] && [ -n "$(ls -A "$TARGET" 2>/dev/null || true)" ]; then
+  BOOT_ARGS+=("--force")
+fi
 
 "$SRC/scripts/bootstrap.sh" "${BOOT_ARGS[@]}"
 
@@ -159,5 +179,5 @@ if [ "$GIT_MODEL" = "promotion" ]; then
   printf '       git switch -c dev/frontend && git switch -c dev/backend\n'
   printf '       git switch -c prod/frontend && git switch -c prod/backend && git switch main\n'
 fi
-printf '  Open the folder in your AI agent and say:\n'
-printf '    Read AGENTS.md and project/STATE.md. Run project-kickoff for phase 0.\n\n'
+printf '  Open the folder in your AI agent and paste:\n'
+printf '    https://devopt.udithsandaruwan.com/prompt.txt\n\n'

@@ -23,26 +23,33 @@ irm https://devopt.udithsandaruwan.com/install.ps1 | iex
 
 Portal: [devopt.udithsandaruwan.com](https://devopt.udithsandaruwan.com) · Studio: [1028.udithsandaruwan.com](https://1028.udithsandaruwan.com) · [Use as GitHub template](https://github.com/udithsandaruwan2/devopt-framework/generate)
 
-After install, paste this into the agent (also on the portal as **Copy prompt**):
+Open an empty folder in your agent, then paste the portal **Copy prompt** (or [prompt.txt](https://devopt.udithsandaruwan.com/prompt.txt)). That one paste installs into *this* folder from the portal — no git clone — then runs Phase 0 and Phase 1.
 
 ```
-DevOpt — Phase 0 kickoff.
+DevOpt — one shot. This open folder is the project. Do not git clone.
 
-You are starting a new product in a DevOpt workspace. AGENTS.md is the operating manual. Do not invent requirements.
+If AGENTS.md is missing, install into THIS directory from https://devopt.udithsandaruwan.com (installer tarball, not git clone). Do not create a nested subdirectory.
+
+Unix / Git Bash / WSL:
+  /bin/bash -c "$(curl -fsSL https://devopt.udithsandaruwan.com/install.sh)" -- --here --yes --name "$(basename "$PWD")"
+
+Then, in this same session, without waiting for another paste:
 
 1. Read AGENTS.md fully, once.
 2. Read project/STATE.md.
 3. Run: ./scripts/context-pack.sh kickoff
    Open only the files that script lists.
-4. Load the project-kickoff skill and run Phase 0 — Intake.
+4. Load the project-kickoff skill.
+5. Phase 0 — Intake: fill project/00-brief.md.
+6. Phase 1 — Discovery: fill project/01-discovery.md from the same answers.
 
-Fill project/00-brief.md. Ask at most 3 questions at a time, each with a recommended default. Do not write product code. Do not approve gates — propose G0 when the brief is complete and wait for me.
+Ask at most 3 questions at a time, each with a recommended default. Use anything I already wrote in this chat. Do not invent requirements. Do not write product code. Do not approve gates — propose G0 and G1 together when both drafts are ready, then stop.
 
-Default stack unless I override: React + Vite + Netlify frontend, Django + DRF backend, promotion-track git (dev/frontend, dev/backend, prod/frontend, prod/backend, then main).
+Default stack unless I override: React + Vite + Netlify frontend, Django + DRF backend, promotion-track git.
 ```
 
 [![CI](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml/badge.svg)](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml)
-![version](https://img.shields.io/badge/version-1.1.2-0ea5e9)
+![version](https://img.shields.io/badge/version-1.1.3-0ea5e9)
 ![AGENTS.md](https://img.shields.io/badge/AGENTS.md-119%20lines-8b5cf6)
 ![baseline](https://img.shields.io/badge/session%20baseline-%E2%89%A4%203.5k%20tokens-22c55e)
 [![license](https://img.shields.io/badge/license-MIT-111827)](LICENSE)
