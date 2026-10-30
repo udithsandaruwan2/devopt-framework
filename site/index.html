@@ -7,31 +7,30 @@
   <meta name="description" content="DevOpt is a portable operating system for AI-assisted products. It stops agents from dumping the repo, guessing requirements, and shipping without you — about 90% fewer context tokens than a typical dump.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@500&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/site.css">
 </head>
-<body>
+<body id="top">
   <div class="wrap">
     <header class="bar">
-      <a class="mark" href="./">DEVOPT</a>
+      <a class="mark" href="./"><span aria-hidden="true"></span> DevOpt</a>
       <nav>
         <a href="./">Home</a>
         <a href="./setup.html">Setup</a>
         <a href="./how.html">How it works</a>
         <a href="./architecture.html">Architecture</a>
       </nav>
-      <a class="studio" href="https://1028.udithsandaruwan.com">Developed by Studio 1028</a>
+      <a class="orb" href="https://1028.udithsandaruwan.com" title="Studio 1028">1028</a>
     </header>
 
     <section class="hero">
-      <div class="shapes" aria-hidden="true">
-        <span class="shape sq"></span>
-        <span class="shape ci"></span>
-        <span class="shape rect"></span>
-      </div>
-      <p class="kicker">Agent operating system · v1.2</p>
-      <h1>Start right.<br>Ship small.<br><span>Spend less.</span></h1>
-      <p class="lead">DevOpt is the portable OS you drop into a folder so every AI agent — Cursor, Claude, Copilot, and the rest — knows where you are, what to build, and which files to open. No git clone. One paste.</p>
+      <p class="kicker">Agent operating system</p>
+      <h1><span>Start right.</span><br>Ship small. Spend less.</h1>
+      <p class="lead">A free, open-source OS for AI-assisted products. Drop it in a folder so every agent — Cursor, Claude, Copilot — knows where you are, what to build, and which files to open.</p>
+      <p class="hero-actions">
+        <a class="btn" href="#prompt">Copy the prompt</a>
+        <a class="ghost" href="./setup.html">Setup guide ↓</a>
+      </p>
     </section>
 
     <section class="grid">
@@ -71,7 +70,7 @@
       <p class="note">That is ~90% less context than dumping this framework into the chat. You still pay for the work that follows — you just stop paying for files the agent should never have loaded. A smaller prompt that causes rework is a net loss; DevOpt optimizes tokens per correct, merged change.</p>
     </section>
 
-    <section>
+    <section id="prompt">
       <h2>Paste this into the agent</h2>
       <p class="lead">Open an empty folder first. This one prompt installs into that folder from this site, then runs Phase 0 and Phase 1.</p>
       <div class="panel">
@@ -106,8 +105,11 @@ Default stack unless I override: React + Vite + Netlify frontend, Django + DRF b
     </section>
 
     <footer>
-      <a class="sig" href="https://1028.udithsandaruwan.com">Developed by <span>Studio 1028</span></a>
-      <span>MIT · Udith Sandaruwan · 1028.udithsandaruwan.com</span>
+      <div class="foot-row">
+        <a class="sig" href="https://1028.udithsandaruwan.com">Made by <span>Studio 1028</span></a>
+        <a class="ghost" href="#top">Back to top ↑</a>
+      </div>
+      <p class="wordmark">DEVOPT</p>
     </footer>
   </div>
   <script src="./assets/site.js"></script>

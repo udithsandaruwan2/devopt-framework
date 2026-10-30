@@ -49,7 +49,7 @@ Default stack unless I override: React + Vite + Netlify frontend, Django + DRF b
 ```
 
 [![CI](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml/badge.svg)](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml)
-![version](https://img.shields.io/badge/version-1.2.0-0ea5e9)
+![version](https://img.shields.io/badge/version-1.2.1-0ea5e9)
 ![AGENTS.md](https://img.shields.io/badge/AGENTS.md-119%20lines-8b5cf6)
 ![baseline](https://img.shields.io/badge/session%20baseline-%E2%89%A4%203.5k%20tokens-22c55e)
 [![license](https://img.shields.io/badge/license-MIT-111827)](LICENSE)
