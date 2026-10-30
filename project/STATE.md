@@ -13,7 +13,7 @@ gates:
   G4: approved 2026-10-30 by human
   G5: approved 2026-10-30 by human (PR #1 and #2 merged to main)
   G6: pending
-next_action: "Ship v1.1.3 one-shot prompt (install into open folder, then Phase 0+1)."
+next_action: "Ship v1.2.0 portal (home, setup, how, architecture) to production."
 ---
 
 # Project state
@@ -22,7 +22,7 @@ next_action: "Ship v1.1.3 one-shot prompt (install into open folder, then Phase 
 
 ## Current focus
 
-v1.1.3 portal: one paste installs into the open folder and runs Phase 0 then Phase 1. Live at `devopt.udithsandaruwan.com`.
+v1.2.0 portal: orange/yellow 2D site with Home, Setup, How it works, Architecture, and a measured ~90% context-token comparison.
 
 ## Gate log
 

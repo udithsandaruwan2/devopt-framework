@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How it works — DevOpt</title>
+  <meta name="description" content="DevOpt runs products through gated phases. Agents propose. You approve. Context packs keep each session small.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@500&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <a class="mark" href="./">DEVOPT</a>
+      <nav>
+        <a href="./">Home</a>
+        <a href="./setup.html">Setup</a>
+        <a href="./how.html">How it works</a>
+        <a href="./architecture.html">Architecture</a>
+      </nav>
+      <a class="studio" href="https://1028.udithsandaruwan.com">Developed by Studio 1028</a>
+    </header>
+
+    <p class="kicker">How it works</p>
+    <h1>Gates before code.<br>Packs before files.</h1>
+    <p class="lead">The agent is a facilitator, not an autopilot. It drafts the next document, asks at most three questions, and waits. You approve the gate. That is how you avoid paying for the wrong build.</p>
+
+    <h2>The path</h2>
+    <div class="phase">
+      <div class="tile"><b>0 Intake</b><span>Brief. Gate G0.</span></div>
+      <div class="tile"><b>1 Discovery</b><span>Problem evidence. G1.</span></div>
+      <div class="tile"><b>2 Product</b><span>PRD + catalog. G2.</span></div>
+      <div class="tile"><b>3 Architecture</b><span>ADRs + stack. G3.</span></div>
+      <div class="tile"><b>4 Plan</b><span>Tasks and slices. G4.</span></div>
+      <div class="tile"><b>5 Build</b><span>Small diffs. G5 per task.</span></div>
+      <div class="tile"><b>6 Release</b><span>Version + rollback. G6.</span></div>
+      <div class="tile"><b>7 Operate</b><span>Learn, then loop.</span></div>
+    </div>
+    <p class="hint">The one-shot prompt covers Phase 0 and Phase 1 in one sitting, then stops. Later phases are the same pattern: one artifact, one gate.</p>
+
+    <section class="grid" style="margin-top:36px">
+      <article class="card what">
+        <h3>Context packs</h3>
+        <p>The agent runs <code>./scripts/context-pack.sh kickoff</code> (or implement-web / implement-api) and opens only that list. Frontend and backend profiles never load together.</p>
+      </article>
+      <article class="card why">
+        <h3>Human production</h3>
+        <p>Promotion tracks keep <code>dev/*</code> and <code>prod/*</code> apart. <code>promote.sh</code> is dry-run until you say go. Agents do not merge to production.</p>
+      </article>
+      <article class="card">
+        <h3>Token budget</h3>
+        <p><code>AGENTS.md</code> stays under 140 lines. Session baseline is 2,234 tokens, capped at 3,500. Skills load only when their trigger matches.</p>
+      </article>
+    </section>
+
+    <p style="margin-top:28px"><a class="btn" href="./setup.html">Go to setup</a></p>
+
+    <footer>
+      <a class="sig" href="https://1028.udithsandaruwan.com">Developed by <span>Studio 1028</span></a>
+      <span>MIT · Udith Sandaruwan · 1028.udithsandaruwan.com</span>
+    </footer>
+  </div>
+  <script src="./assets/site.js"></script>
+</body>
+</html>

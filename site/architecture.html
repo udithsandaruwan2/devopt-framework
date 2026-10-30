@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture — DevOpt</title>
+  <meta name="description" content="DevOpt architecture: thin AGENTS.md, triggered skills, one pack and one profile, promotion-track git, React and Django defaults.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@500&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="bar">
+      <a class="mark" href="./">DEVOPT</a>
+      <nav>
+        <a href="./">Home</a>
+        <a href="./setup.html">Setup</a>
+        <a href="./how.html">How it works</a>
+        <a href="./architecture.html">Architecture</a>
+      </nav>
+      <a class="studio" href="https://1028.udithsandaruwan.com">Developed by Studio 1028</a>
+    </header>
+
+    <p class="kicker">Architecture</p>
+    <h1>Small core.<br>Load the rest on demand.</h1>
+    <p class="lead">The expensive failure mode is a fat always-on prompt. DevOpt keeps a thin manual, then opens one skill, one pack, and one stack profile.</p>
+
+    <div class="arch">
+      <div class="layer">
+        <span class="chip sq">Tier 0</span>
+        <span class="chip">AGENTS.md · 2,234 token baseline with skill names</span>
+      </div>
+      <div class="layer">
+        <span class="chip round">Tier 1</span>
+        <span class="chip">One skill body · kickoff, spec, git, release…</span>
+      </div>
+      <div class="layer">
+        <span class="chip">Tier 2</span>
+        <span class="chip sq">One pack</span>
+        <span class="chip round">One profile</span>
+        <span class="chip">One project file</span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:40px">Default stack</h2>
+    <div class="grid">
+      <article class="card what">
+        <h3>Frontend</h3>
+        <p>React + Vite + TypeScript on Netlify. Lives in <code>apps/web</code>. Own git track: <code>dev/frontend</code> → <code>prod/frontend</code>.</p>
+      </article>
+      <article class="card why">
+        <h3>Backend</h3>
+        <p>Django 5 + DRF by default. FastAPI or NestJS if you ask. Lives in <code>apps/api</code>. Track: <code>dev/backend</code> → <code>prod/backend</code>.</p>
+      </article>
+    </div>
+
+    <h2 style="margin-top:40px">Git you can actually run</h2>
+    <div class="layer" style="margin-top:8px">
+      <span class="chip sq">feat/…</span>
+      <span class="chip">dev/frontend · dev/backend</span>
+      <span class="chip round">prod/* only when you say so</span>
+      <span class="chip">main = phase archive</span>
+    </div>
+    <p class="hint">Contract between web and API is HTTP, not a shared database. <code>promote.sh</code> dry-runs until a human applies it. Source: ADRs 0001–0003.</p>
+
+    <h2 style="margin-top:40px">Why this saves tokens</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Do not load both stacks</h3>
+        <p>A Django session never opens the Nest profile. A web task never opens the API profile. That alone drops thousands of unused tokens.</p>
+      </article>
+      <article class="card">
+        <h3>Do not load every playbook</h3>
+        <p>Fourteen docs in this repo are ~23,600 tokens. The agent opens one. Skills stay as 646 tokens of names until a trigger hits.</p>
+      </article>
+    </div>
+
+    <p style="margin-top:28px"><a class="btn" href="./setup.html">Set it up</a></p>
+
+    <footer>
+      <a class="sig" href="https://1028.udithsandaruwan.com">Developed by <span>Studio 1028</span></a>
+      <span>MIT · Udith Sandaruwan · 1028.udithsandaruwan.com</span>
+    </footer>
+  </div>
+  <script src="./assets/site.js"></script>
+</body>
+</html>

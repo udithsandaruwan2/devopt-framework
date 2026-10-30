@@ -3,6 +3,17 @@
 
 All notable changes to the framework are documented here. Format follows [Keep a Changelog](https://keepachangelog.com), versioning follows [SemVer](https://semver.org).
 
+## [1.2.0] — 2026-10-30
+
+### Added
+
+- Multi-page portal: Home, Setup, How it works, Architecture.
+- Home page token comparison: typical repo dump (~50,700 tokens) vs DevOpt baseline (2,234), ~90% fewer context tokens (`token-audit.sh`).
+
+### Changed
+
+- Portal visual system: orange / yellow, 2D squares–circles–rectangles, shared `site/assets`.
+
 ## [1.1.3] — 2026-10-30
 
 ### Added
