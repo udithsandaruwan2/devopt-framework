@@ -7,25 +7,27 @@
   <meta name="description" content="DevOpt architecture: thin AGENTS.md, triggered skills, one pack and one profile, promotion-track git, React and Django defaults.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@500&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/site.css">
 </head>
-<body>
+<body id="top" class="page">
   <div class="wrap">
     <header class="bar">
-      <a class="mark" href="./">DEVOPT</a>
+      <a class="mark" href="./"><span aria-hidden="true"></span> DevOpt</a>
       <nav>
         <a href="./">Home</a>
         <a href="./setup.html">Setup</a>
         <a href="./how.html">How it works</a>
         <a href="./architecture.html">Architecture</a>
       </nav>
-      <a class="studio" href="https://1028.udithsandaruwan.com">Developed by Studio 1028</a>
+      <a class="orb" href="https://1028.udithsandaruwan.com" title="Studio 1028">1028</a>
     </header>
 
+    <div class="hero">
     <p class="kicker">Architecture</p>
-    <h1>Small core.<br>Load the rest on demand.</h1>
+    <h1><span>Small core.</span><br>Load the rest on demand.</h1>
     <p class="lead">The expensive failure mode is a fat always-on prompt. DevOpt keeps a thin manual, then opens one skill, one pack, and one stack profile.</p>
+    </div>
 
     <div class="arch">
       <div class="layer">
@@ -80,8 +82,11 @@
     <p style="margin-top:28px"><a class="btn" href="./setup.html">Set it up</a></p>
 
     <footer>
-      <a class="sig" href="https://1028.udithsandaruwan.com">Developed by <span>Studio 1028</span></a>
-      <span>MIT · Udith Sandaruwan · 1028.udithsandaruwan.com</span>
+      <div class="foot-row">
+        <a class="sig" href="https://1028.udithsandaruwan.com">Made by <span>Studio 1028</span></a>
+        <a class="ghost" href="#top">Back to top ↑</a>
+      </div>
+      <p class="wordmark">DEVOPT</p>
     </footer>
   </div>
   <script src="./assets/site.js"></script>

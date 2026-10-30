@@ -13,7 +13,7 @@ gates:
   G4: approved 2026-10-30 by human
   G5: approved 2026-10-30 by human (PR #1 and #2 merged to main)
   G6: pending
-next_action: "Ship v1.2.0 portal (home, setup, how, architecture) to production."
+next_action: "Ship v1.2.1 Plexo-style portal UI to production."
 ---
 
 # Project state
@@ -22,7 +22,7 @@ next_action: "Ship v1.2.0 portal (home, setup, how, architecture) to production.
 
 ## Current focus
 
-v1.2.0 portal: orange/yellow 2D site with Home, Setup, How it works, Architecture, and a measured ~90% context-token comparison.
+v1.2.1 portal: dark pill-nav UI (Plexo-style) on Home, Setup, How it works, Architecture.
 
 ## Gate log
 

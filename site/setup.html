@@ -7,25 +7,27 @@
   <meta name="description" content="Open a folder, paste one prompt. DevOpt installs from the portal and runs Phase 0 and Phase 1. No git clone.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@500&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/site.css">
 </head>
-<body>
+<body id="top" class="page">
   <div class="wrap">
     <header class="bar">
-      <a class="mark" href="./">DEVOPT</a>
+      <a class="mark" href="./"><span aria-hidden="true"></span> DevOpt</a>
       <nav>
         <a href="./">Home</a>
         <a href="./setup.html">Setup</a>
         <a href="./how.html">How it works</a>
         <a href="./architecture.html">Architecture</a>
       </nav>
-      <a class="studio" href="https://1028.udithsandaruwan.com">Developed by Studio 1028</a>
+      <a class="orb" href="https://1028.udithsandaruwan.com" title="Studio 1028">1028</a>
     </header>
 
-    <p class="kicker">Setup guide</p>
-    <h1>Three steps.<br>Then you approve.</h1>
+    <div class="hero">
+    <p class="kicker">Setup</p>
+    <h1><span>Three steps.</span><br>Then you approve.</h1>
     <p class="lead">You pick the folder. The agent installs DevOpt from this site into that folder — not a git clone of our repo — and writes the brief and discovery. You own the gates.</p>
+    </div>
 
     <div class="steps">
       <article class="step">
@@ -103,8 +105,11 @@ Default stack unless I override: React + Vite + Netlify frontend, Django + DRF b
     </section>
 
     <footer>
-      <a class="sig" href="https://1028.udithsandaruwan.com">Developed by <span>Studio 1028</span></a>
-      <span>MIT · Udith Sandaruwan · 1028.udithsandaruwan.com</span>
+      <div class="foot-row">
+        <a class="sig" href="https://1028.udithsandaruwan.com">Made by <span>Studio 1028</span></a>
+        <a class="ghost" href="#top">Back to top ↑</a>
+      </div>
+      <p class="wordmark">DEVOPT</p>
     </footer>
   </div>
   <script src="./assets/site.js"></script>

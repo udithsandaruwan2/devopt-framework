@@ -3,6 +3,12 @@
 
 All notable changes to the framework are documented here. Format follows [Keep a Changelog](https://keepachangelog.com), versioning follows [SemVer](https://semver.org).
 
+## [1.2.1] — 2026-10-30
+
+### Changed
+
+- Portal visual language: dark pill nav, orange glow, rounded cards (Plexo-style), giant footer wordmark.
+
 ## [1.2.0] — 2026-10-30
 
 ### Added
