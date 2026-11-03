@@ -58,7 +58,13 @@ $PROFILES_DIR/layout-split-apps.md
 $PACKS_DIR/session.txt
 $PACKS_DIR/implement-web.txt
 $PACKS_DIR/implement-api.txt
+$PACKS_DIR/implement-api-python.txt
+$PACKS_DIR/implement-api-nest.txt
 $PACKS_DIR/git.txt
+.agents/recipes/react-vite-feature.md
+.agents/recipes/django-drf-crud.md
+.agents/recipes/fastapi-router.md
+.agents/recipes/nestjs-module.md
 "
 
 for item in $required; do

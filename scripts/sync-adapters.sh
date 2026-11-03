@@ -128,6 +128,92 @@ if printf '%s\n' "$ADAPTERS" | grep -qw cursor; then
       fi
     done
   fi
+
+  # Path-scoped stack profiles — auto-attach in Cursor when matching files are open.
+  # Saves tokens: agents stop re-researching React/Django/Nest/FastAPI defaults.
+  profiles_dir="$TARGET/$PROFILES_DIR"
+  write_cursor_stack_rule() {
+    local dest="$1" desc="$2" globs="$3" profile="$4" recipe="${5:-}"
+    local src="$profiles_dir/$profile"
+    [ -f "$src" ] || return 0
+    if can_write "$dest"; then
+      {
+        if [ -n "$globs" ]; then
+          printf -- '---\ndescription: "%s"\nglobs: %s\nalwaysApply: false\n---\n\n' \
+            "$(yaml_escape "$desc")" "$globs"
+        else
+          printf -- '---\ndescription: "%s"\nalwaysApply: false\n---\n\n' \
+            "$(yaml_escape "$desc")"
+        fi
+        write_header
+        printf 'Do **not** web-search this stack. Follow the profile below.\n'
+        printf 'Run `./scripts/context-pack.sh` for the matching pack before coding.\n\n'
+        if [ -n "$recipe" ] && [ -f "$TARGET/$recipe" ]; then
+          printf 'Creating a feature? Also open `%s`.\n\n' "$recipe"
+        fi
+        cat "$src"
+      } > "$dest"
+      generated=$((generated + 1))
+    else
+      skipped=$((skipped + 1))
+    fi
+  }
+
+  if [ -d "$profiles_dir" ]; then
+    fe_profile="${FRONTEND_PROFILE:-web-react-vite-netlify}"
+    be_profile="${BACKEND_PROFILE:-api-python-django}"
+
+    case "$fe_profile" in
+      web-react-vite-netlify)
+        write_cursor_stack_rule \
+          "$cursor_dir/050-stack-web-react-vite.mdc" \
+          "React + Vite + Netlify frontend conventions for apps/web" \
+          "apps/web/**" \
+          "web-react-vite-netlify.md" \
+          ".agents/recipes/react-vite-feature.md"
+        ;;
+    esac
+
+    case "$be_profile" in
+      api-python-django)
+        write_cursor_stack_rule \
+          "$cursor_dir/050-stack-api-django.mdc" \
+          "Django + DRF API conventions when editing Python under apps/api" \
+          "apps/api/**/*.py,apps/api/**/pyproject.toml,apps/api/**/manage.py" \
+          "api-python-django.md" \
+          ".agents/recipes/django-drf-crud.md"
+        # Keep Nest/FastAPI rules as agent-requested (no globs) so opt-in backends still work.
+        write_cursor_stack_rule \
+          "$cursor_dir/050-stack-api-fastapi.mdc" \
+          "Use when BACKEND_PROFILE is FastAPI (api-python) or editing FastAPI routers under apps/api" \
+          "" \
+          "api-python.md" \
+          ".agents/recipes/fastapi-router.md"
+        write_cursor_stack_rule \
+          "$cursor_dir/050-stack-api-nest.mdc" \
+          "Use when BACKEND_PROFILE is NestJS (api-node-nest) or editing Nest modules under apps/api" \
+          "" \
+          "api-node-nest.md" \
+          ".agents/recipes/nestjs-module.md"
+        ;;
+      api-python)
+        write_cursor_stack_rule \
+          "$cursor_dir/050-stack-api-fastapi.mdc" \
+          "FastAPI conventions when editing Python under apps/api" \
+          "apps/api/**/*.py,apps/api/**/pyproject.toml" \
+          "api-python.md" \
+          ".agents/recipes/fastapi-router.md"
+        ;;
+      api-node-nest)
+        write_cursor_stack_rule \
+          "$cursor_dir/050-stack-api-nest.mdc" \
+          "NestJS API conventions when editing TypeScript under apps/api" \
+          "apps/api/**/*.ts,apps/api/**/*.tsx,apps/api/**/tsconfig.json" \
+          "api-node-nest.md" \
+          ".agents/recipes/nestjs-module.md"
+        ;;
+    esac
+  fi
 fi
 
 # ---------------------------------------------------------------- copilot

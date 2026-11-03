@@ -1,16 +1,19 @@
 # Profile — Node + NestJS
 
 Load only when the task touches the Nest API. Git track: **backend**.
-Opt-in: set `BACKEND_PROFILE=api-node-nest` or bootstrap with `--backend-nest`. Default backend is Django.
+Opt-in: `BACKEND_PROFILE=api-node-nest` or bootstrap `--backend-nest`. Default is Django.
+**Do not web-search Nest defaults.** Follow this file, then the recipe.
 
 ## Pin
 
-- Node LTS + TypeScript (strict)
+- Node LTS + TypeScript (`strict`, no `any`)
 - NestJS modules / controllers / providers
 - pnpm
+- class-validator + class-transformer
+- Global `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`, `transform`)
+- `@nestjs/config` for env
+- Jest unit + e2e (supertest)
 - Path: `apps/api/`
-- Validation: class-validator + ValidationPipe (whitelist, forbid non-whitelisted)
-- Config: `@nestjs/config`; secrets from env, never committed
 
 ## Commands
 
@@ -18,50 +21,66 @@ Opt-in: set `BACKEND_PROFILE=api-node-nest` or bootstrap with `--backend-nest`. 
 cd apps/api
 pnpm install
 pnpm start:dev
-pnpm test          # unit / integration
+pnpm test                 # prefer: pnpm test -- <name>.spec.ts
 pnpm test:e2e
-pnpm lint
-pnpm typecheck
-pnpm build
+pnpm lint && pnpm typecheck && pnpm build
 ```
 
 ## Module shape
 
 ```
-apps/api/src/<domain>/
-  <domain>.module.ts
-  <domain>.controller.ts
-  <domain>.service.ts
-  dto/
-  <domain>.spec.ts
+apps/api/src/
+  main.ts                 # bootstrap + global pipes/filters
+  app.module.ts
+  common/                 # filters, guards, interceptors (no feature imports)
+  <domain>/
+    <domain>.module.ts
+    <domain>.controller.ts
+    <domain>.service.ts
+    dto/
+    entities/ or persistence/
+    <domain>.spec.ts
 ```
 
-- One domain module per bounded context.
-- Controllers: HTTP only. Services: logic. No SQL in controllers.
-- DTOs at the boundary; domain types inside.
-- Errors: Nest exceptions with stable codes. No silent catches.
+## Decisions (stop re-deciding)
 
-## API
+| Topic | Choice |
+|---|---|
+| Organization | Feature modules, not layer folders |
+| DI | Constructor injection only (`private readonly`). No `new Service()` |
+| Controllers | HTTP only. Logic in services |
+| DTOs | **Classes** with class-validator. Interfaces do not validate |
+| Validation | One global pipe in `main.ts`. Do not stack duplicates |
+| Responses | Map to response DTOs — never return ORM/Prisma entities raw |
+| Cross-module | Export the provider; import the module. Avoid `forwardRef` unless confirmed |
+| Config | `ConfigService` / validated env schema — no hardcoded secrets |
+| API prefix | `/v1` |
+| Authz | Guards + server checks. Never trust role from body |
+| OpenAPI | Nest Swagger is the contract for `apps/web` |
+| Data access | In services/repos only. Parameterized queries |
+| Migrations | Expand → migrate → contract |
+| Idempotency | Required on create/payment |
 
-- Versioned prefix `/v1`.
-- Authz on the server. Never trust a role from the client body.
-- Idempotency key on create/payment endpoints.
-- OpenAPI generated from Nest; `apps/web` consumes the contract, not guessed shapes.
+## Do / don’t
 
-## Data
+| Do | Don’t |
+|---|---|
+| Register new providers in the module | Forget `providers` / `exports` arrays |
+| Update specs when DTOs/entities change | Skip tests for new endpoints |
+| One domain folder per bounded context | Circular module imports |
+| `pnpm` + lockfile discipline | npm/yarn unless lockfile already is |
 
-- One module owns its tables. No cross-module table reads.
-- Migrations: expand → migrate → contract.
-- Parameterized queries only.
+## Git / CI
 
-## Git
-
-- Branch from `dev/backend`: `feat/backend/<slug>`
-- Merge to `dev/backend` at feature end.
+- From `dev/backend` → `feat/backend/<slug>` → merge to `dev/backend`.
 - Promote to `prod/backend` only when the human says so.
-- CI path filter: `apps/api/**`.
+- Path filter: `apps/api/**`.
+
+## Recipe
+
+New domain module: `.agents/recipes/nestjs-module.md`
 
 ## Never touch
 
-- `dist/`, frontend files (`apps/web/**`) from a backend task
+- `dist/`, frontend (`apps/web/**`) from a backend task
 - `pnpm-lock.yaml` unless adding a justified dependency

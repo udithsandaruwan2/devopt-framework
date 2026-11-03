@@ -49,7 +49,7 @@ Default stack unless I override: React + Vite + Netlify frontend, Django + DRF b
 ```
 
 [![CI](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml/badge.svg)](https://github.com/udithsandaruwan2/devopt-framework/actions/workflows/framework-check.yml)
-![version](https://img.shields.io/badge/version-1.2.1-0ea5e9)
+![version](https://img.shields.io/badge/version-1.3.0-0ea5e9)
 ![AGENTS.md](https://img.shields.io/badge/AGENTS.md-119%20lines-8b5cf6)
 ![baseline](https://img.shields.io/badge/session%20baseline-%E2%89%A4%203.5k%20tokens-22c55e)
 [![license](https://img.shields.io/badge/license-MIT-111827)](LICENSE)
@@ -133,8 +133,10 @@ Review the diff before you commit. Bootstrap may overwrite `.gitignore`, `.edito
 |---|---|
 | Thin `AGENTS.md` (~1.6k tokens) | The only mandatory read |
 | Skills by description | 12 procedures, ~650 tokens of names |
-| `./scripts/context-pack.sh implement-api` | Ordered allowlist — Django profile, not Nest |
+| `./scripts/context-pack.sh implement-api` | Ordered allowlist — Django profile + recipe, not Nest |
+| Cursor `050-stack-*.mdc` globs | Auto-attach React/Django/Nest/FastAPI only when `apps/**` is open |
 | One stack profile per task | Never load React + Django + Nest together |
+| Recipes | CRUD/module/feature steps so agents do not re-plan scaffolding |
 | Work order + **track** | Frontend and backend stay on separate lines |
 | `promote.sh` dry-run | Production only when a human says so |
 | S / M / L / XL sizing | Small tasks skip planning loops |
