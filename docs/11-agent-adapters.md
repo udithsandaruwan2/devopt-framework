@@ -63,9 +63,12 @@ Behavior:
 Cursor rules use `.mdc` frontmatter. The sync generates:
 
 - `000-agents.mdc` — `alwaysApply: true`, the full `AGENTS.md`.
+- `050-stack-*.mdc` — path-scoped stack profiles (`globs` under `apps/web` / `apps/api`). Auto-attach when those files are in context so agents do not re-research React/Vite, Django, FastAPI, or Nest defaults.
 - `100-skill-<name>.mdc` — `alwaysApply: false`, `description` from the skill, body included for on-demand activation.
 
 If your Cursor version prefers "Agent Requested" rules, the description is the trigger. Keep descriptions specific: "Use when writing or changing product code", not "Helps with code".
+
+Stack rules are **not** always-on. Opening `apps/web/**` loads React+Vite; `apps/api/**/*.py` loads Django (default) or FastAPI paths; Nest TypeScript under `apps/api` loads Nest. Still run `./scripts/context-pack.sh implement-*` so the recipe is on the allowlist.
 
 ### Copilot
 

@@ -20,7 +20,16 @@ The default behavior for code changes: read the task, prove the behavior, make t
 
 ### 1. Confirm the contract
 
-Identify the **track**: `frontend` | `backend` | `framework`. Run `./scripts/context-pack.sh implement-web` or `implement-api` and open only those files plus the task.
+Identify the **track**: `frontend` | `backend` | `framework`. Run the matching pack and open only those files plus the task:
+
+| Track / backend | Pack |
+|---|---|
+| frontend | `implement-web` |
+| backend Django (default) | `implement-api` |
+| backend FastAPI | `implement-api-python` |
+| backend Nest | `implement-api-nest` |
+
+Do **not** re-research stack defaults already in the profile/recipe. In Cursor, `050-stack-*.mdc` auto-attaches when `apps/**` files are open.
 
 Read the task and spec. In one or two internal lines, state:
 

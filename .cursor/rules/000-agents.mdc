@@ -81,8 +81,9 @@ Follow existing patterns. Small modules, explicit interfaces, validate at bounda
 | Why this product? | `project/00-brief.md`, `project/01-discovery.md` |
 | What are we building? | `project/02-prd.md`, `project/02-product-catalog.md` |
 | How is it structured? | `project/03-architecture.md`, `project/04-adr/` |
-| Stack conventions | `.agents/profiles/<name>.md` (one) |
+| Stack conventions | `.agents/profiles/<name>.md` (one) + `.agents/recipes/` |
 | Frontend / backend package | `apps/web/AGENTS.md` / `apps/api/AGENTS.md` |
+| Cursor path rules | `.cursor/rules/050-stack-*.mdc` (auto on `apps/**`) |
 | Exact behavior | `project/06-specs/` |
 | Git / promote | `docs/07-git-workflow.md` |
 | Process depth | `docs/` (one playbook) |
