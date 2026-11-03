@@ -13,7 +13,7 @@ gates:
   G4: approved 2026-10-30 by human
   G5: approved 2026-10-30 by human (PR #1 and #2 merged to main)
   G6: pending
-next_action: "Ship v1.3.0 master stack profiles + Cursor globs to production."
+next_action: "Use v1.3.0 in a product bootstrap; gather Cursor token feedback."
 ---
 
 # Project state
