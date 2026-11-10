@@ -21,9 +21,9 @@ Windows PowerShell:
 irm https://devopt.udithsandaruwan.com/install.ps1 | iex
 ```
 
-Portal: [devopt.udithsandaruwan.com](https://devopt.udithsandaruwan.com) (Home · [Setup](https://devopt.udithsandaruwan.com/setup.html) · [How it works](https://devopt.udithsandaruwan.com/how.html) · [Architecture](https://devopt.udithsandaruwan.com/architecture.html)) · Studio: [1028.udithsandaruwan.com](https://1028.udithsandaruwan.com) · [Use as GitHub template](https://github.com/udithsandaruwan2/devopt-framework/generate)
+Portal: [devopt.udithsandaruwan.com](https://devopt.udithsandaruwan.com) (Home · [Setup](https://devopt.udithsandaruwan.com/setup.html) · [Update](https://devopt.udithsandaruwan.com/update.html) · [How it works](https://devopt.udithsandaruwan.com/how.html) · [Architecture](https://devopt.udithsandaruwan.com/architecture.html)) · Studio: [1028.udithsandaruwan.com](https://1028.udithsandaruwan.com) · [Use as GitHub template](https://github.com/udithsandaruwan2/devopt-framework/generate)
 
-Open an empty folder in your agent, then paste the portal **Copy prompt** (or [prompt.txt](https://devopt.udithsandaruwan.com/prompt.txt)). That one paste installs into *this* folder from the portal — no git clone — then runs Phase 0 and Phase 1.
+Open an empty folder in your agent, then paste the portal **Copy prompt** (or [prompt.txt](https://devopt.udithsandaruwan.com/prompt.txt)). That one paste installs into *this* folder from the portal — no git clone — then runs Phase 0 and Phase 1. Already on DevOpt? Use the [Update](https://devopt.udithsandaruwan.com/update.html) page ([update-prompt.txt](https://devopt.udithsandaruwan.com/update-prompt.txt)) — do not re-run Setup.
 
 ```
 DevOpt — one shot. This open folder is the project. Do not git clone.
