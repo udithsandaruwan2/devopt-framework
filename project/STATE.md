@@ -11,9 +11,9 @@ gates:
   G2: approved 2026-10-30 by human
   G3: approved 2026-10-30 by human
   G4: approved 2026-10-30 by human
-  G5: approved 2026-11-10 by human (PR #8 merged)
-  G6: approved 2026-11-10 by human (tag v1.4.0; v1.4.1 portal Update page pending merge)
-next_action: "Merge portal Update page (v1.4.1); tag after deploy; gather upgrade-prompt feedback."
+  G5: approved 2026-11-10 by human (PR #8, #9 merged)
+  G6: approved 2026-11-10 by human (tags v1.4.0, v1.4.1)
+next_action: "Confirm portal Update page live; gather upgrade-prompt + Graphify token feedback."
 ---
 
 # Project state
@@ -22,7 +22,7 @@ next_action: "Merge portal Update page (v1.4.1); tag after deploy; gather upgrad
 
 ## Current focus
 
-v1.4.1: portal Update page + upgrade agent prompt (separate from Setup one-shot). Graphify remains from v1.4.0.
+v1.4.1 shipped: portal Update page + upgrade agent prompt. Graphify from v1.4.0. Collect feedback.
 
 ## Gate log
 
@@ -33,8 +33,8 @@ v1.4.1: portal Update page + upgrade agent prompt (separate from Setup one-shot)
 | G2 Product | approved | 2026-10-30 | human | PRD + catalog |
 | G3 Architecture | approved | 2026-10-30 | human | ADRs 0001–0004 |
 | G4 Plan / build | approved | 2026-10-30 | human | plan executed |
-| G5 Merge | approved | 2026-11-10 | human | PR #8 on `main` |
-| G6 Release | approved | 2026-11-10 | human | tag `v1.4.0` |
+| G5 Merge | approved | 2026-11-10 | human | PR #8, #9 on `main` |
+| G6 Release | approved | 2026-11-10 | human | tags `v1.4.0`, `v1.4.1` |
 
 ## Blockers
 
