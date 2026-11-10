@@ -1,8 +1,8 @@
 ---
 project: "DevOpt"
-phase: 6-release
-phase_name: "Release"
-status: in-progress
+phase: 7-operate
+phase_name: "Operate"
+status: stable
 updated: "2026-11-10"
 owner: "human"
 gates:
@@ -11,9 +11,9 @@ gates:
   G2: approved 2026-10-30 by human
   G3: approved 2026-10-30 by human
   G4: approved 2026-10-30 by human
-  G5: approved 2026-10-30 by human (PR #1 and #2 merged to main)
-  G6: pending — v1.4.0 Graphify ship
-next_action: "Merge feat/graphify-integration → main; tag v1.4.0; publish portal if needed."
+  G5: approved 2026-11-10 by human (PR #8 merged)
+  G6: approved 2026-11-10 by human (tag v1.4.0)
+next_action: "Bootstrap a product with v1.4.0; confirm graphify query + update loop in Cursor; gather token feedback."
 ---
 
 # Project state
@@ -22,7 +22,7 @@ next_action: "Merge feat/graphify-integration → main; tag v1.4.0; publish port
 
 ## Current focus
 
-v1.4.0: Graphify knowledge-graph integration (bootstrap + agent query-first + update-after-change) for lower exploratory token spend.
+v1.4.0 shipped: Graphify knowledge-graph integration (bootstrap + query-first + update-after-change). Collect product feedback on token spend.
 
 ## Gate log
 
@@ -33,8 +33,8 @@ v1.4.0: Graphify knowledge-graph integration (bootstrap + agent query-first + up
 | G2 Product | approved | 2026-10-30 | human | PRD + catalog |
 | G3 Architecture | approved | 2026-10-30 | human | ADRs 0001–0004 |
 | G4 Plan / build | approved | 2026-10-30 | human | plan executed |
-| G5 Merge | approved | 2026-10-30 | human | PR #1 and #2 on `main` |
-| G6 Release | pending | 2026-11-10 | | v1.4.0 Graphify |
+| G5 Merge | approved | 2026-11-10 | human | PR #8 on `main` |
+| G6 Release | approved | 2026-11-10 | human | tag `v1.4.0` |
 
 ## Blockers
 
