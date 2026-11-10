@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update — DevOpt</title>
+  <meta name="description" content="Upgrade an existing DevOpt project to a new framework release. Agent prompt and manual guide — without redoing setup.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body id="top" class="page">
+  <div class="wrap">
+    <header class="bar">
+      <a class="mark" href="./"><span aria-hidden="true"></span> DevOpt</a>
+      <nav>
+        <a href="./">Home</a>
+        <a href="./setup.html">Setup</a>
+        <a href="./update.html" aria-current="page">Update</a>
+        <a href="./how.html">How it works</a>
+        <a href="./architecture.html">Architecture</a>
+      </nav>
+      <a class="orb" href="https://1028.udithsandaruwan.com" title="Studio 1028">1028</a>
+    </header>
+
+    <div class="hero">
+      <p class="kicker">Update</p>
+      <h1><span>New release.</span><br>Keep your product.</h1>
+      <p class="lead">Already bootstrapped with DevOpt? Pull in framework changes only — scripts, skills, packs, and new setup like Graphify — without wiping <code>project/</code> or <code>apps/</code>.</p>
+      <p class="hint" style="margin-top:18px">New project? Use <a href="./setup.html">Setup</a> (one-shot prompt). This page is for upgrades only.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <i>1</i>
+        <div>
+          <h3>Open the existing product folder</h3>
+          <p>In Cursor (or any agent), open the repo that already has <code>AGENTS.md</code> and <code>project/STATE.md</code>. Commit or stash first so you can review the diff.</p>
+        </div>
+      </article>
+      <article class="step">
+        <i>2</i>
+        <div>
+          <h3>Paste the upgrade prompt</h3>
+          <p>Copy the box below — not the home/Setup one-shot. The agent fetches the latest release, copies framework layers, runs new setup scripts, then stops with a report.</p>
+        </div>
+      </article>
+      <article class="step">
+        <i>3</i>
+        <div>
+          <h3>Review the diff, then commit</h3>
+          <p>Check that product files stayed put. Prefer <code>chore(framework): upgrade to vX.Y.Z</code>. Do not force-push.</p>
+        </div>
+      </article>
+    </div>
+
+    <section>
+      <h2 style="margin-top:40px">Upgrade agent prompt</h2>
+      <p class="lead" style="text-align:left;max-width:none;margin:0 0 12px">Separate from the Setup one-shot. Paste this into an agent session on an existing DevOpt project.</p>
+      <div class="panel">
+        <div class="row">
+          <pre id="prompt-upgrade">DevOpt — upgrade an EXISTING product. This open folder already has DevOpt. Do NOT run the one-shot install. Do NOT git clone into a nested folder. Do NOT restart Phase 0/1. Do NOT overwrite product work.
+
+Goal: bring this project to the latest DevOpt release (framework layers only), then run any new setup scripts.
+
+Constraints:
+- Preserve: apps/, project/ product artifacts (brief, PRD, catalog, specs, STATE content you wrote), customized AGENTS.md §11, product README/CHANGELOG, .env*
+- Refresh: scripts/, .agents/ (skills, profiles, packs, recipes, templates), docs/, framework.conf version, new files from the release CHANGELOG
+- Merge carefully: AGENTS.md (keep §11 project invariants), .gitignore (union, keep product entries), .githooks/commit-msg (keep Conventional Commits)
+
+Steps (same session):
+
+1. Confirm this is a DevOpt project: AGENTS.md and project/STATE.md exist. If missing, stop and tell me to use the Setup one-shot prompt instead.
+2. Note current FRAMEWORK_VERSION from framework.conf (if present).
+3. Fetch the latest DevOpt release source into a temp dir (not inside this repo):
+   Unix / Git Bash / WSL:
+     TAG=$(curl -fsSL https://api.github.com/repos/udithsandaruwan2/devopt-framework/releases/latest | sed -n 's/.*"tag_name": "\([^"]*\)".*/\1/p' | head -1)
+     [ -n "$TAG" ] || TAG=v1.4.0
+     curl -fsSL "https://github.com/udithsandaruwan2/devopt-framework/archive/refs/tags/${TAG}.tar.gz" | tar -xz -C /tmp
+     SRC="/tmp/devopt-framework-${TAG#v}"
+   If the archive folder name differs, locate it under /tmp and set SRC.
+4. Read ${SRC}/CHANGELOG.md for versions newer than ours. List only files/scripts we must add or merge.
+5. Copy framework layers from $SRC into THIS directory (overwrite framework files, never apps/ or product project artifacts):
+     scripts/  .agents/skills/  .agents/profiles/  .agents/packs/  .agents/recipes/  .agents/templates/  docs/
+   Add any NEW top-level framework files named in the changelog (e.g. .graphifyignore, scripts/graphify-setup.sh).
+6. Merge AGENTS.md: take new sections from $SRC/AGENTS.md but restore our §11 Project invariants and any project-specific bullets we already had.
+7. Union-merge .gitignore (keep ours + new entries like graphify-out/).
+8. If scripts/graphify-setup.sh exists: chmod +x scripts/*.sh && ./scripts/graphify-setup.sh .
+9. Run ./scripts/sync-adapters.sh --force (or without --force if the script requires confirmation — prefer non-destructive flags the script documents).
+10. Run ./scripts/doctor.sh and ./scripts/token-audit.sh. Fix only framework wiring failures, not product bugs.
+11. Update project/STATE.md next_action to mention the new framework version. Do not change gate approvals.
+12. Show a short report: from→to version, files added/merged, commands run, doctor result. Stop. Do not commit unless I ask.
+
+Ask at most 3 questions only if a conflict is blocking (e.g. heavily customized AGENTS.md). Default: preserve product customizations and take upstream framework behavior.</pre>
+          <button class="copy" type="button" data-copy="prompt-upgrade">Copy upgrade prompt</button>
+        </div>
+      </div>
+      <p class="hint">Raw file: <a href="./update-prompt.txt">update-prompt.txt</a> · New installs: <a href="./setup.html">Setup</a> / <a href="./prompt.txt">prompt.txt</a></p>
+    </section>
+
+    <section>
+      <h2>Manual guide</h2>
+      <p class="lead" style="text-align:left;max-width:none;margin:0 0 12px">Prefer doing it yourself? Same rules as the agent: framework layers only.</p>
+
+      <div class="panel">
+        <h3>Recommended — selective copy</h3>
+        <p class="hint" style="margin-top:0">Clean git state in your product repo first.</p>
+        <div class="row">
+          <pre id="cmd-manual"># 1) Download a release (example: latest tag)
+TAG=v1.4.0
+curl -fsSL "https://github.com/udithsandaruwan2/devopt-framework/archive/refs/tags/${TAG}.tar.gz" \
+  | tar -xz -C /tmp
+SRC="/tmp/devopt-framework-${TAG#v}"
+
+# 2) From your product root — copy framework layers only
+cp -a "$SRC/scripts/." ./scripts/
+cp -a "$SRC/.agents/skills/." ./.agents/skills/
+cp -a "$SRC/.agents/profiles/." ./.agents/profiles/
+cp -a "$SRC/.agents/packs/." ./.agents/packs/
+cp -a "$SRC/.agents/recipes/." ./.agents/recipes/
+cp -a "$SRC/.agents/templates/." ./.agents/templates/
+cp -a "$SRC/docs/." ./docs/
+# new files from the changelog, e.g.:
+cp -n "$SRC/.graphifyignore" . 2>/dev/null || true
+cp "$SRC/scripts/graphify-setup.sh" ./scripts/
+
+# 3) Merge AGENTS.md carefully (keep your §11). Union-merge .gitignore
+#    (add graphify-out/ if missing). Update FRAMEWORK_VERSION in framework.conf
+
+# 4) Run new setup + checks
+chmod +x scripts/*.sh
+./scripts/graphify-setup.sh .
+./scripts/sync-adapters.sh --force
+./scripts/doctor.sh
+./scripts/token-audit.sh</pre>
+          <button class="copy" type="button" data-copy="cmd-manual">Copy commands</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Full refresh — only if many versions behind</h3>
+        <p class="hint" style="margin-top:0">From a local checkout of the framework release:</p>
+        <div class="row">
+          <code class="cmd" id="cmd-force">./scripts/bootstrap.sh /path/to/your-product "Your App" --force --copy</code>
+          <button class="copy" type="button" data-copy="cmd-force">Copy</button>
+        </div>
+        <p class="hint">Then <strong>immediately</strong> <code>git diff</code> and restore anything product-owned that was overwritten (<code>project/*</code>, customized <code>AGENTS.md</code> §11, app code). Bootstrap may touch <code>.gitignore</code>, <code>Makefile</code>, and template <code>project/</code> files. A backup may appear under <code>.apf-backup-*</code>.</p>
+      </div>
+
+      <div class="panel">
+        <h3>What to never overwrite</h3>
+        <p style="margin:0;color:var(--muted)"><code>apps/</code> · product <code>project/</code> artifacts (brief, PRD, specs, gates) · <code>.env*</code> · your app README/CHANGELOG · customized <code>AGENTS.md</code> §11</p>
+      </div>
+
+      <div class="panel">
+        <h3>After every upgrade</h3>
+        <p style="margin:0;color:var(--muted)">Read the release <a href="https://github.com/udithsandaruwan2/devopt-framework/blob/main/CHANGELOG.md">CHANGELOG</a> · run any new <code>scripts/*-setup.sh</code> · <code>doctor</code> + <code>token-audit</code> · commit <code>chore(framework): upgrade to vX.Y.Z</code></p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot-row">
+        <a class="sig" href="https://1028.udithsandaruwan.com">Made by <span>Studio 1028</span></a>
+        <a class="ghost" href="#top">Back to top ↑</a>
+      </div>
+      <p class="wordmark">DEVOPT</p>
+    </footer>
+  </div>
+  <script src="./assets/site.js"></script>
+</body>
+</html>

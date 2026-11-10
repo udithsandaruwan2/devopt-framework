@@ -12,8 +12,8 @@ gates:
   G3: approved 2026-10-30 by human
   G4: approved 2026-10-30 by human
   G5: approved 2026-11-10 by human (PR #8 merged)
-  G6: approved 2026-11-10 by human (tag v1.4.0)
-next_action: "Bootstrap a product with v1.4.0; confirm graphify query + update loop in Cursor; gather token feedback."
+  G6: approved 2026-11-10 by human (tag v1.4.0; v1.4.1 portal Update page pending merge)
+next_action: "Merge portal Update page (v1.4.1); tag after deploy; gather upgrade-prompt feedback."
 ---
 
 # Project state
@@ -22,7 +22,7 @@ next_action: "Bootstrap a product with v1.4.0; confirm graphify query + update l
 
 ## Current focus
 
-v1.4.0 shipped: Graphify knowledge-graph integration (bootstrap + query-first + update-after-change). Collect product feedback on token spend.
+v1.4.1: portal Update page + upgrade agent prompt (separate from Setup one-shot). Graphify remains from v1.4.0.
 
 ## Gate log
 

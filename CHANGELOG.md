@@ -3,6 +3,13 @@
 
 All notable changes to the framework are documented here. Format follows [Keep a Changelog](https://keepachangelog.com), versioning follows [SemVer](https://semver.org).
 
+## [1.4.1] — 2026-11-10
+
+### Added
+
+- Portal **Update** page (`site/update.html`) with upgrade agent prompt (`update-prompt.txt`) and manual selective-copy guide — separate from the Setup one-shot.
+- FAQ entry for upgrading an existing DevOpt project to a new release.
+
 ## [1.4.0] — 2026-11-10
 
 ### Added

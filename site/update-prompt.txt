@@ -1,0 +1,33 @@
+DevOpt — upgrade an EXISTING product. This open folder already has DevOpt. Do NOT run the one-shot install. Do NOT git clone into a nested folder. Do NOT restart Phase 0/1. Do NOT overwrite product work.
+
+Goal: bring this project to the latest DevOpt release (framework layers only), then run any new setup scripts.
+
+Constraints:
+- Preserve: apps/, project/ product artifacts (brief, PRD, catalog, specs, STATE content you wrote), customized AGENTS.md §11, product README/CHANGELOG, .env*
+- Refresh: scripts/, .agents/ (skills, profiles, packs, recipes, templates), docs/, framework.conf version, new files from the release CHANGELOG
+- Merge carefully: AGENTS.md (keep §11 project invariants), .gitignore (union, keep product entries), .githooks/commit-msg (keep Conventional Commits)
+
+Steps (same session):
+
+1. Confirm this is a DevOpt project: AGENTS.md and project/STATE.md exist. If missing, stop and tell me to use the Setup one-shot prompt instead.
+2. Note current FRAMEWORK_VERSION from framework.conf (if present).
+3. Fetch the latest DevOpt release source into a temp dir (not inside this repo):
+   Unix / Git Bash / WSL:
+     TAG=$(curl -fsSL https://api.github.com/repos/udithsandaruwan2/devopt-framework/releases/latest | sed -n 's/.*"tag_name": "\([^"]*\)".*/\1/p' | head -1)
+     [ -n "$TAG" ] || TAG=v1.4.0
+     curl -fsSL "https://github.com/udithsandaruwan2/devopt-framework/archive/refs/tags/${TAG}.tar.gz" | tar -xz -C /tmp
+     SRC="/tmp/devopt-framework-${TAG#v}"
+   If the archive folder name differs, locate it under /tmp and set SRC.
+4. Read ${SRC}/CHANGELOG.md for versions newer than ours. List only files/scripts we must add or merge.
+5. Copy framework layers from $SRC into THIS directory (overwrite framework files, never apps/ or product project artifacts):
+     scripts/  .agents/skills/  .agents/profiles/  .agents/packs/  .agents/recipes/  .agents/templates/  docs/
+   Add any NEW top-level framework files named in the changelog (e.g. .graphifyignore, scripts/graphify-setup.sh).
+6. Merge AGENTS.md: take new sections from $SRC/AGENTS.md but restore our §11 Project invariants and any project-specific bullets we already had.
+7. Union-merge .gitignore (keep ours + new entries like graphify-out/).
+8. If scripts/graphify-setup.sh exists: chmod +x scripts/*.sh && ./scripts/graphify-setup.sh .
+9. Run ./scripts/sync-adapters.sh --force (or without --force if the script requires confirmation — prefer non-destructive flags the script documents).
+10. Run ./scripts/doctor.sh and ./scripts/token-audit.sh. Fix only framework wiring failures, not product bugs.
+11. Update project/STATE.md next_action to mention the new framework version. Do not change gate approvals.
+12. Show a short report: from→to version, files added/merged, commands run, doctor result. Stop. Do not commit unless I ask.
+
+Ask at most 3 questions only if a conflict is blocking (e.g. heavily customized AGENTS.md). Default: preserve product customizations and take upstream framework behavior.

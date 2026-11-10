@@ -23,6 +23,14 @@ Yes. Run:
 
 It adds the framework files and adapters without touching your code. Review the diff: it may overwrite `.gitignore`, `.editorconfig`, or `Makefile`. Then fill `AGENTS.md` §11 and write a one-page `project/00-brief.md` describing the current state. For an existing product, start at phase 2 (product baseline) or phase 5 (build), not phase 0.
 
+### How do I upgrade an existing DevOpt project to a new release?
+
+Do **not** re-run the Setup one-shot. Prefer selective copy of framework layers (`scripts/`, `.agents/`, `docs/`, new changelog files), merge `AGENTS.md` while keeping §11, then run any new `scripts/*-setup.sh` (e.g. `graphify-setup.sh`).
+
+Portal: [Update guide + upgrade agent prompt](https://devopt.udithsandaruwan.com/update.html) · raw prompt: `site/update-prompt.txt`.
+
+Full refresh only if many versions behind: `bootstrap.sh … --force --copy`, then restore product `project/` and customized §11 from git.
+
 ### The agent ignores `AGENTS.md`. What now?
 
 1. Confirm the file is the one your tool reads (see [11-agent-adapters.md](11-agent-adapters.md)).
