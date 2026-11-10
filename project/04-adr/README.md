@@ -27,3 +27,4 @@ Or copy `.agents/templates/adr.md`.
 | 0001 | Promotion-track git | accepted | 2026-10-30 |
 | 0002 | Django default; stack profiles | accepted | 2026-10-30 |
 | 0003 | Context packs as the load allowlist | accepted | 2026-10-30 |
+| 0004 | Graphify code-map token reducer | accepted | 2026-11-10 |

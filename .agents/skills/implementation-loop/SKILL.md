@@ -47,7 +47,8 @@ If the baseline is red, record it. Do not attribute pre-existing failures to you
 
 ### 3. Locate the pattern
 
-- `rg "<symbol>"` to find siblings.
+- If `graphify-out/` exists: `graphify query "<task>"` (or `path` / `explain`) before `rg`/Read.
+- Else `rg "<symbol>"` to find siblings.
 - Read the closest existing implementation and its tests.
 - Read only the files you will touch plus their direct dependencies.
 - Check `project/04-adr/` and `project/rules/` for constraints.
@@ -111,6 +112,16 @@ Check:
 - [ ] Diff is understandable without a call.
 
 If the diff is large or messy, split it before committing.
+
+### 7b. Refresh the code graph
+
+After code edits (not docs-only), keep Graphify current:
+
+```bash
+command -v graphify >/dev/null && graphify update .
+```
+
+Git post-* hooks under `.githooks` also rebuild in the background after commit/checkout/merge. Do not commit `graphify-out/`.
 
 ### 8. Commit one logical change
 

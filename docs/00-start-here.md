@@ -22,6 +22,7 @@ Each arrow is a gate with a small, named artifact. The agent always knows what t
    ./scripts/bootstrap.sh ~/projects/my-app "My App"
    cd ~/projects/my-app
    git init && ./scripts/install-hooks.sh   # if it is a new repo
+   # bootstrap also runs graphify-setup.sh (knowledge graph / token reducer)
    ```
 
 2. **Apply stack + git profiles** (React/Vite/Netlify + Django, promotion-track git; Nest/FastAPI are opt-in):

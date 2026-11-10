@@ -31,13 +31,14 @@ Operating manual for AI agents. Read this file fully, once per session. Do not p
 
 ## 3. Context economy (non-negotiable)
 
-- **Search before read.** Use `rg`/glob, then the smallest useful range.
+- **Graph before grep.** If `graphify-out/` exists: `graphify query "…"`, then open only named files. Else `rg`/glob, smallest range.
 - **Never re-read** a file already read this session unless it changed.
 - **One profile, one pack, one spec.** Never load both frontend and backend profiles.
 - **No file dumps in chat.** Cite `path:line`. No narration beyond the one-line orientation.
 - **Size first.** S = no plan. M = short plan. L = plan + slices. XL = split before starting.
 - **Stop and ask** when two sources of truth conflict. Max 3 questions, each with a default.
 - **Handoff at ~60%** to `project/handoffs/` and start a fresh session.
+- **After code edits:** `graphify update .` (AST, free). Setup: `./scripts/graphify-setup.sh`.
 
 ## 4. Work order for non-trivial work
 
@@ -45,7 +46,7 @@ Every M/L task: **Goal · Track (frontend\|backend\|framework) · Context · Con
 
 ## 5. Build loop
 
-`spec → failing check → smallest implementation → targeted verify → full verify → self-review diff → commit`
+`spec → failing check → smallest implementation → targeted verify → full verify → self-review → graphify update . → commit`
 
 Done: acceptance met · tests pass · lint/typecheck pass · docs updated · no secrets · diff reviewable in one sitting. Stop after 2 failed attempts and re-read the error. Stop after 3 and ask.
 
@@ -78,6 +79,7 @@ Follow existing patterns. Small modules, explicit interfaces, validate at bounda
 | Frontend / backend package | `apps/web/AGENTS.md` / `apps/api/AGENTS.md` |
 | Cursor path rules | `.cursor/rules/050-stack-*.mdc` (auto on `apps/**`) |
 | Exact behavior | `project/06-specs/` |
+| Code map / deps | `graphify query\|path\|explain` (then named files) |
 | Git / promote | `docs/07-git-workflow.md` |
 | Process depth | `docs/` (one playbook) |
 | Procedures | `.agents/skills/<name>/SKILL.md` |
@@ -108,7 +110,7 @@ Only `name` + `description` are always visible. Load the body when the trigger m
 - Backend profile: `.agents/profiles/api-python-django.md` (alt: `api-python.md` FastAPI, `api-node-nest.md`)
 - Git: promotion tracks. Detail: `docs/07-git-workflow.md`
 - Stack summary: `project/rules/stack.md` (after `apply-profile.sh`)
-- Never touch: `dist/`, `.netlify/`, `.env*`, generated adapters, secrets
+- Never touch: `dist/`, `.netlify/`, `.env*`, `graphify-out/`, generated adapters, secrets
 - Data class / deploy target: set per product in `project/rules/stack.md`
 
 ## 12. When stuck

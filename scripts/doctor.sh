@@ -42,12 +42,14 @@ scripts/doctor.sh
 scripts/bootstrap.sh
 scripts/new.sh
 scripts/install-hooks.sh
+scripts/graphify-setup.sh
 scripts/lib.sh
 scripts/prompt-lint.sh
 scripts/promote.sh
 scripts/context-pack.sh
 scripts/apply-profile.sh
 .githooks/commit-msg
+.graphifyignore
 .github/workflows/framework-check.yml
 $PROFILES_DIR/README.md
 $PROFILES_DIR/web-react-vite-netlify.md

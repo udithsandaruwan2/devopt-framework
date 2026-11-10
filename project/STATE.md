@@ -1,9 +1,9 @@
 ---
 project: "DevOpt"
-phase: 5-build
-phase_name: "Build"
+phase: 6-release
+phase_name: "Release"
 status: in-progress
-updated: "2026-11-03"
+updated: "2026-11-10"
 owner: "human"
 gates:
   G0: approved 2026-10-30 by human
@@ -12,8 +12,8 @@ gates:
   G3: approved 2026-10-30 by human
   G4: approved 2026-10-30 by human
   G5: approved 2026-10-30 by human (PR #1 and #2 merged to main)
-  G6: pending
-next_action: "Use v1.3.0 in a product bootstrap; gather Cursor token feedback."
+  G6: pending — v1.4.0 Graphify ship
+next_action: "Merge feat/graphify-integration → main; tag v1.4.0; publish portal if needed."
 ---
 
 # Project state
@@ -22,7 +22,7 @@ next_action: "Use v1.3.0 in a product bootstrap; gather Cursor token feedback."
 
 ## Current focus
 
-v1.3.0: master React/Django/Nest/FastAPI profiles, recipes, Cursor path-scoped stack rules for lower token spend.
+v1.4.0: Graphify knowledge-graph integration (bootstrap + agent query-first + update-after-change) for lower exploratory token spend.
 
 ## Gate log
 
@@ -31,10 +31,10 @@ v1.3.0: master React/Django/Nest/FastAPI profiles, recipes, Cursor path-scoped s
 | G0 Brief | approved | 2026-10-30 | human | `00-brief.md` |
 | G1 Discovery | approved | 2026-10-30 | human | `01-discovery.md` |
 | G2 Product | approved | 2026-10-30 | human | PRD + catalog |
-| G3 Architecture | approved | 2026-10-30 | human | ADRs 0001–0003 |
+| G3 Architecture | approved | 2026-10-30 | human | ADRs 0001–0004 |
 | G4 Plan / build | approved | 2026-10-30 | human | plan executed |
 | G5 Merge | approved | 2026-10-30 | human | PR #1 and #2 on `main` |
-| G6 Release | pending | | | |
+| G6 Release | pending | 2026-11-10 | | v1.4.0 Graphify |
 
 ## Blockers
 
@@ -47,6 +47,7 @@ v1.3.0: master React/Django/Nest/FastAPI profiles, recipes, Cursor path-scoped s
 | 2026-10-30 | Promotion-track git (4 long-lived + main) | `04-adr/0001-promotion-tracks.md` |
 | 2026-10-30 | Django default; Nest/FastAPI opt-in | `04-adr/0002-stack-profiles.md` |
 | 2026-10-30 | Context packs as the load allowlist | `04-adr/0003-context-packs.md` |
+| 2026-11-10 | Graphify for code-map token reduction | `04-adr/0004-graphify-knowledge-graph.md` |
 
 ## Next action
 

@@ -30,6 +30,9 @@ coverage/
 project/handoffs/*.local.md
 .apf-backup-*/
 
+# Graphify knowledge graph (rebuild with: graphify update .)
+graphify-out/
+
 # IDE (adapters are generated and committed; local IDE state is not)
 .idea/
 .vscode/
