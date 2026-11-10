@@ -34,6 +34,25 @@ Do not guess which files to open. Print the list, then open only those:
 
 Packs live in `.agents/packs/<name>.txt`. A pack is an ordered allowlist. Skip missing paths. **Never load both frontend and backend profiles in one session.** Stack conventions live in `.agents/profiles/` (Tier 2), not in `AGENTS.md`.
 
+### Graphify (code map)
+
+Graphify builds a local AST knowledge graph so agents navigate by dependency instead of dumping files. Official CLI: `uv tool install graphifyy`.
+
+```bash
+./scripts/graphify-setup.sh          # CLI + ignore + Cursor rule + .githooks wrappers
+graphify query "how does promote work?"
+graphify path "bootstrap.sh" "sync-adapters.sh"
+graphify explain "context-pack"
+graphify update .                    # after code edits (AST, free — no LLM)
+```
+
+Rules:
+
+- Prefer `graphify query` **before** the first `rg`/Read when `graphify-out/` exists.
+- After code edits, run `graphify update .` (git post-* hooks also rebuild in the background).
+- Do not commit `graphify-out/`. Do not run `graphify claude install` if `CLAUDE.md` → `AGENTS.md`.
+- ADR: `project/04-adr/0004-graphify-knowledge-graph.md`.
+
 ---
 
 ## Budgets
@@ -303,9 +322,9 @@ Do not optimize token count alone. A 30% token reduction with 2× rework is a lo
 1. Read `AGENTS.md` and `STATE.md`. Nothing else by default.
 2. Turn the request into a work order.
 3. Size it. S → act; M → plan; L → slice; XL → split.
-4. Load one doc, one skill, one spec at a time.
+4. `graphify query` (if graph exists), then one doc / skill / spec.
 5. Verify against acceptance, not against effort.
-6. Handoff at 60%, not at 95%.
+6. `graphify update .` after code edits; handoff at 60%.
 7. Measure tokens per merged task.
 
 Next: [11-agent-adapters.md](11-agent-adapters.md).

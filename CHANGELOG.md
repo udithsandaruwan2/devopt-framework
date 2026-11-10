@@ -3,6 +3,19 @@
 
 All notable changes to the framework are documented here. Format follows [Keep a Changelog](https://keepachangelog.com), versioning follows [SemVer](https://semver.org).
 
+## [1.4.0] — 2026-11-10
+
+### Added
+
+- Graphify integration for code-map token reduction: `scripts/graphify-setup.sh`, `.graphifyignore`, ADR `0004-graphify-knowledge-graph.md`.
+- Bootstrap installs Graphify (CLI check, Cursor rule via `graphify cursor install`, `.githooks/post-*` rebuild wrappers compatible with `core.hooksPath=.githooks`).
+- Agent loop: `graphify query` before explore; `graphify update .` after code edits (`AGENTS.md` §3/§5, `implementation-loop`).
+
+### Changed
+
+- `.gitignore` excludes `graphify-out/` (rebuild locally; do not commit).
+- Token-economy playbook documents Graphify as the preferred orientation path.
+
 ## [1.3.0] — 2026-11-03
 
 ### Added

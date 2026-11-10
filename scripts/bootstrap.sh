@@ -172,6 +172,15 @@ if [ "$HOOKS" = "1" ] && [ -x "$TARGET/scripts/install-hooks.sh" ]; then
   "$TARGET/scripts/install-hooks.sh" "$TARGET" || true
 fi
 
+# ---------------------------------------------------------------- graphify (token reducer)
+if [ -x "$TARGET/scripts/graphify-setup.sh" ]; then
+  # Skip rebuild during bootstrap copy storms; agents/hooks rebuild on first change.
+  "$TARGET/scripts/graphify-setup.sh" "$TARGET" --skip-build || \
+    warn "graphify-setup.sh failed; run ./scripts/graphify-setup.sh later."
+elif [ -x "$ROOT/scripts/graphify-setup.sh" ] && [ "$TARGET" = "$ROOT" ]; then
+  "$ROOT/scripts/graphify-setup.sh" "$TARGET" --skip-build || true
+fi
+
 say ""
 say "Done. Next steps:"
 say "  1. cd $TARGET"
@@ -182,3 +191,4 @@ say "  3. Review AGENTS.md §11 and project/rules/stack.md."
 say "  4. Open the project in your agent and say:"
 say "     \"Read AGENTS.md and project/STATE.md. Run project-kickoff for phase 0.\""
 say "  5. Verify: ./scripts/doctor.sh && ./scripts/token-audit.sh"
+say "  6. Graphify: ./scripts/graphify-setup.sh  # then graphify update . after code edits"

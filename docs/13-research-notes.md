@@ -156,6 +156,7 @@ Most public guidance covers one layer: prompts, or specs, or git, or skills. APF
 1. **A phase/gate state machine** (`project/STATE.md`) that tells any agent where the project is and what artifact is missing.
 2. **A product catalog with stable IDs** that prevents scope drift across specs, plans, tasks, and releases.
 3. **Token budgets with scripts** (`token-audit.sh`, `doctor.sh`) so context discipline is enforced, not aspirational.
+4. **Graphify knowledge graph** (`graphifyy` CLI) so agents query a local AST map before broad reads; see ADR 0004.
 
 The combination is the contribution. Each individual practice has prior art.
 

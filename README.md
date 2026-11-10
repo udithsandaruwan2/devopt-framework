@@ -111,11 +111,14 @@ git switch main
 
 ./scripts/doctor.sh
 ./scripts/token-audit.sh
+
+# knowledge graph (token reducer; also run by bootstrap)
+./scripts/graphify-setup.sh
 ```
 
 Open the project in any agent:
 
-> Read `AGENTS.md` and `project/STATE.md`. Run `project-kickoff` for phase 0.
+> Read `AGENTS.md` and `project/STATE.md`. Run `project-kickoff` for phase 0. Prefer `graphify query` before broad searches.
 
 Existing repo:
 
